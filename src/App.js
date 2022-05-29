@@ -20,8 +20,15 @@ if(!item)
 
 
 function App() {
-  const [label, setLabel] = useState(0)
-  const [rational, setRational] = useState([])
+//DATA STRUCTURE
+//  {
+//    "sentence": {
+//      "label":0/1,
+//      "rational":[...]
+//    }
+//  }
+  const [data, setData] = useState({})
+  const [index, setIndex] = useState(0)
 
   var sentences = ["my first sentence", "my second sentence"]
 
@@ -29,14 +36,16 @@ function App() {
   return (
     <HistoryRouter  history={history}>
           <Routes>
-            <Route path="/" element={<HighlightTask sentences = {sentences} rational={rational} label={label}  setRational={setRational} history={history}  />}/>
-            <Route path="/label" element={<LabelTask sentences = {sentences} label={label} setLabel={setLabel}  history={history} />}/>
+            <Route path="/" element={<HighlightTask sentences = {sentences} data={data} setData={setData} index={index} setIndex={setIndex} history={history}  />}/>
+            <Route path="/label" element={<LabelTask sentences = {sentences} data={data} setData={setData} index={index} setIndex={setIndex} history={history} />}/>
             <Route path="/finished" element={<h3>FINISHED</h3>}/>
-
           </Routes>
-          <h3>index: {window.localStorage.getItem('index')}</h3>
+          <h3>sentence n. {index}</h3>
+
     </HistoryRouter >
   );
 }
 
 export default App;
+
+

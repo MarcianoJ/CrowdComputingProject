@@ -4,13 +4,15 @@ import { ReactSession }  from 'react-client-session';
 
 class HighlightTask extends React.Component {
     constructor(props) {
+
         super(props)
         var index = window.localStorage.getItem('index');
 
         this.state = {
-            sentence:this.props.sentences[index]
+            sentence:this.props.sentences[this.props.index]
         } 
 
+        this.props.data[this.state.sentence]["rational"]=[]
         this.highlightHandler = this.highlightHandler.bind(this)
         this.removeHandler = this.removeHandler.bind(this)
         this.resetHandler = this.resetHandler.bind(this)
@@ -18,31 +20,40 @@ class HighlightTask extends React.Component {
     }
 
     highlightHandler(e) {
-          var sel = window.getSelection().toString();
-          if(!this.props.rational.includes(sel)){
-            this.props.setRational([...this.props.rational, sel])
-          }
+        var sel = window.getSelection().toString();
+        var data = this.props.data 
+        data[this.state.sentence]["rational"] = [...data[this.state.sentence]["rational"], sel]
+        console.log(data)
+        this.props.setData(({...data}))
+
     }
 
     removeHandler(e){
         var id =e.target.id
-        this.props.rational.splice(id,1)
-        this.props.setRational([...this.props.rational])
+        console.log(this.props.data)
+
+        this.props.data[this.state.sentence]["rational"].splice(id,1)
+        var data = this.props.data 
+
+        console.log("data:  ")
+        console.log(data)
+        console.log({...data})
+        data[this.state.sentence]["rational"] = {...data}[this.state.sentence]["rational"]
+        this.props.setData(({...data}))
     }
 
     resetHandler(e){
-        this.props.setRational([])
+        var data = this.props.data 
+        data[this.state.sentence]["rational"] = []
+        this.props.setData(({...data}))
     }
 
     submit(e){
         // var data = {
         //     "sentence":
         // }
-        var index = window.localStorage.getItem('index');
-        var new_index = parseInt(index)+1
-        window.localStorage.setItem('index',new_index);
-        console.log(new_index);
-        console.log(this.props.sentences)
+        var new_index = this.props.index + 1
+        this.props.setIndex(new_index);
         if(this.props.sentences.length <= new_index){
             this.props.history.push("/finished")
             
@@ -56,6 +67,7 @@ class HighlightTask extends React.Component {
     }
 
     render() {
+        console.log(this.props.data)
         return (
             <div>
                 <TextArea  sentence = {this.state.sentence} handler={this.highlightHandler}/>
@@ -64,7 +76,7 @@ class HighlightTask extends React.Component {
 
                     <ul>
                     {
-                        this.props.rational.map((item, i)=>{
+                        this.props.data[this.state.sentence]["rational"].map((item, i)=>{
                             return (
                             <li key={i}><span className="badge alert-success item">{item}<span className="x" id={i} onClick={this.removeHandler} aria-hidden="true">&times;</span></span></li>
                             )
@@ -77,10 +89,6 @@ class HighlightTask extends React.Component {
                     <button className="btn btn-danger" onClick={this.resetHandler}>reset</button>
                     <button className="btn btn-success"  onClick={this.submit}>next</button>
                 </div>
-                <h3>label: {this.props.label}</h3>
-                <h3>user: {ReactSession.get("username")}</h3>
-
-
             </div>
 
         )

@@ -4,16 +4,22 @@ import TextArea from "./TextArea";
 class LabelTask extends React.Component{
     constructor(props, history) {
         super(props)
-        var index = window.localStorage.getItem('index');
 
         this.state = {
-            sentence:this.props.sentences[index]
+            sentence:this.props.sentences[this.props.index]
         } 
+
+
+        this.props.data[this.state.sentence]={"rational":[], "label":-1}
+
         this.labelSelectHandler = this.labelSelectHandler.bind(this)
     }
 
     labelSelectHandler(e){
-        this.props.setLabel(e.target.id)
+        var data = this.props.data
+        console.log(this.state.sentence)
+        data[this.state.sentence].label = e.target.id
+        this.props.setData(data)
         this.props.history.push("/")
     }
 
