@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Data Points Task Sets</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Data point</th>
+      <th>Task set</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @data_points_task_sets.each do |data_points_task_set| %>
+      <tr>
+        <td><%= data_points_task_set.data_point_id %></td>
+        <td><%= data_points_task_set.task_set_id %></td>
+        <td><%= link_to 'Show', data_points_task_set %></td>
+        <td><%= link_to 'Edit', edit_data_points_task_set_path(data_points_task_set) %></td>
+        <td><%= link_to 'Destroy', data_points_task_set, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Data Points Task Set', new_data_points_task_set_path %>

@@ -1,0 +1,27 @@
+<%= form_with(model: classification_option) do |form| %>
+  <% if classification_option.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(classification_option.errors.count, "error") %> prohibited this classification_option from being saved:</h2>
+
+      <ul>
+        <% classification_option.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :dataset_id %>
+    <%= form.text_field :dataset_id %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

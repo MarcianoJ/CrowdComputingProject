@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Task Sets Users</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Task set</th>
+      <th>User</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @task_sets_users.each do |task_sets_user| %>
+      <tr>
+        <td><%= task_sets_user.task_set_id %></td>
+        <td><%= task_sets_user.user_id %></td>
+        <td><%= link_to 'Show', task_sets_user %></td>
+        <td><%= link_to 'Edit', edit_task_sets_user_path(task_sets_user) %></td>
+        <td><%= link_to 'Destroy', task_sets_user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Task Sets User', new_task_sets_user_path %>

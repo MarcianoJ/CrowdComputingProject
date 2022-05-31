@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Task set:</strong>
+  <%= @task_sets_user.task_set_id %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @task_sets_user.user_id %>
+</p>
+
+<%= link_to 'Edit', edit_task_sets_user_path(@task_sets_user) %> |
+<%= link_to 'Back', task_sets_users_path %>

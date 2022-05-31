@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Input:</strong>
+  <%= @data_point.input %>
+</p>
+
+<p>
+  <strong>Input2:</strong>
+  <%= @data_point.input2 %>
+</p>
+
+<p>
+  <strong>Maskable words:</strong>
+  <%= @data_point.maskable_words %>
+</p>
+
+<p>
+  <strong>Custom options:</strong>
+  <%= @data_point.custom_options %>
+</p>
+
+<p>
+  <strong>Dataset:</strong>
+  <%= @data_point.dataset_id %>
+</p>
+
+<p>
+  <strong>Classification:</strong>
+  <%= @data_point.classification %>
+</p>
+
+<%= link_to 'Edit', edit_data_point_path(@data_point) %> |
+<%= link_to 'Back', data_points_path %>

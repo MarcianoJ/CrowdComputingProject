@@ -1,0 +1,32 @@
+<%= form_with(model: task_set) do |form| %>
+  <% if task_set.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(task_set.errors.count, "error") %> prohibited this task_set from being saved:</h2>
+
+      <ul>
+        <% task_set.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :tutorial %>
+    <%= form.check_box :tutorial %>
+  </div>
+
+  <div class="field">
+    <%= form.label :task_id %>
+    <%= form.text_field :task_id %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

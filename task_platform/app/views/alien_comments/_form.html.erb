@@ -1,0 +1,37 @@
+<%= form_with(model: alien_comment) do |form| %>
+  <% if alien_comment.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(alien_comment.errors.count, "error") %> prohibited this alien_comment from being saved:</h2>
+
+      <ul>
+        <% alien_comment.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :untranslated %>
+    <%= form.text_field :untranslated %>
+  </div>
+
+  <div class="field">
+    <%= form.label :translated %>
+    <%= form.text_field :translated %>
+  </div>
+
+  <div class="field">
+    <%= form.label :robot_response %>
+    <%= form.text_field :robot_response %>
+  </div>
+
+  <div class="field">
+    <%= form.label :alien_story_id %>
+    <%= form.text_field :alien_story_id %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

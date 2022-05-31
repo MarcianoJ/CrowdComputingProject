@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @classification_option.name %>
+</p>
+
+<p>
+  <strong>Dataset:</strong>
+  <%= @classification_option.dataset_id %>
+</p>
+
+<%= link_to 'Edit', edit_classification_option_path(@classification_option) %> |
+<%= link_to 'Back', classification_options_path %>

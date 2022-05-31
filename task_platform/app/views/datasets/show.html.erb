@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @dataset.name %>
+</p>
+
+<p>
+  <strong>Nlp kind:</strong>
+  <%= @dataset.nlp_kind %>
+</p>
+
+<%= link_to 'Edit', edit_dataset_path(@dataset) %> |
+<%= link_to 'Back', datasets_path %>

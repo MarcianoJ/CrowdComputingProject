@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>User:</strong>
+  <%= @task_result.user_id %>
+</p>
+
+<p>
+  <strong>Task:</strong>
+  <%= @task_result.task_id %>
+</p>
+
+<p>
+  <strong>Data points task set:</strong>
+  <%= @task_result.data_points_task_set_id %>
+</p>
+
+<p>
+  <strong>Classification:</strong>
+  <%= @task_result.classification %>
+</p>
+
+<p>
+  <strong>Masked words:</strong>
+  <%= @task_result.masked_words %>
+</p>
+
+<p>
+  <strong>Rationale words:</strong>
+  <%= @task_result.rationale_words %>
+</p>
+
+<%= link_to 'Edit', edit_task_result_path(@task_result) %> |
+<%= link_to 'Back', task_results_path %>

@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Alien Comments</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Untranslated</th>
+      <th>Translated</th>
+      <th>Robot response</th>
+      <th>Alien story</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @alien_comments.each do |alien_comment| %>
+      <tr>
+        <td><%= alien_comment.untranslated %></td>
+        <td><%= alien_comment.translated %></td>
+        <td><%= alien_comment.robot_response %></td>
+        <td><%= alien_comment.alien_story_id %></td>
+        <td><%= link_to 'Show', alien_comment %></td>
+        <td><%= link_to 'Edit', edit_alien_comment_path(alien_comment) %></td>
+        <td><%= link_to 'Destroy', alien_comment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Alien Comment', new_alien_comment_path %>
