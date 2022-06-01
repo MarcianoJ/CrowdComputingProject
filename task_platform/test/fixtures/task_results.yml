@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  task: one
+  data_points_task_set: one
+  classification: MyString
+  masked_words: 
+  rationale_words: 
+
+two:
+  user: two
+  task: two
+  data_points_task_set: two
+  classification: MyString
+  masked_words: 
+  rationale_words: 

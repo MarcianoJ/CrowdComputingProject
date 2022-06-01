@@ -1,0 +1,47 @@
+<%= form_with(model: task_result) do |form| %>
+  <% if task_result.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(task_result.errors.count, "error") %> prohibited this task_result from being saved:</h2>
+
+      <ul>
+        <% task_result.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :user_id %>
+    <%= form.text_field :user_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :data_point_id %>
+    <%= form.collection_select :data_point_id, DataPoint.all, :id, :representable_name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :task_set_id %>
+    <%= form.collection_select :task_set_id, TaskSet.all, :id, :representable_name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :classification %>
+    <%= form.text_field :classification %>
+  </div>
+
+  <div class="field">
+    <%= form.label :masked_words %>
+    <%= form.text_field :masked_words %>
+  </div>
+
+  <div class="field">
+    <%= form.label :rationale_words %>
+    <%= form.text_field :rationale_words %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
