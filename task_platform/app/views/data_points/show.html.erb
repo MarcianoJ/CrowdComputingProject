@@ -22,12 +22,17 @@
 
 <p>
   <strong>Dataset:</strong>
-  <%= @data_point.dataset_id %>
+  <%= @data_point.dataset.representable_name %>
 </p>
 
 <p>
   <strong>Classification:</strong>
   <%= @data_point.classification %>
+</p>
+
+<p>
+  <strong>Rationale words:</strong>
+  <%= @data_point.rationale_words %>
 </p>
 
 <%= link_to 'Edit', edit_data_point_path(@data_point) %> |

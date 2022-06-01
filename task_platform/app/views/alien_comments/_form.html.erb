@@ -28,7 +28,7 @@
 
   <div class="field">
     <%= form.label :alien_story_id %>
-    <%= form.text_field :alien_story_id %>
+    <%= form.collection_select :alien_story_id, AlienStory.all, :id, :representable_name %>
   </div>
 
   <div class="actions">

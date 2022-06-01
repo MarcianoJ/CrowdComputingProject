@@ -6,8 +6,8 @@
 </p>
 
 <p>
-  <strong>Nlp kind:</strong>
-  <%= @dataset.nlp_kind %>
+  <strong>Task:</strong>
+  <%= @dataset.task.representable_name %>
 </p>
 
 <%= link_to 'Edit', edit_dataset_path(@dataset) %> |

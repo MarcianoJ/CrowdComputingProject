@@ -20,6 +20,7 @@ class DataPointsTest < ApplicationSystemTestCase
     fill_in "Input", with: @data_point.input
     fill_in "Input2", with: @data_point.input2
     fill_in "Maskable words", with: @data_point.maskable_words
+    fill_in "Rationale words", with: @data_point.rationale_words
     click_on "Create Data point"
 
     assert_text "Data point was successfully created"
@@ -36,6 +37,7 @@ class DataPointsTest < ApplicationSystemTestCase
     fill_in "Input", with: @data_point.input
     fill_in "Input2", with: @data_point.input2
     fill_in "Maskable words", with: @data_point.maskable_words
+    fill_in "Rationale words", with: @data_point.rationale_words
     click_on "Update Data point"
 
     assert_text "Data point was successfully updated"

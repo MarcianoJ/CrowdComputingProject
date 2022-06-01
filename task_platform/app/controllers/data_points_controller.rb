@@ -65,6 +65,6 @@ class DataPointsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def data_point_params
-      params.require(:data_point).permit(:input, :input2, :maskable_words, :custom_options, :dataset_id, :classification)
+      params.require(:data_point).permit(:input, :input2, :maskable_words, :custom_options, :dataset_id, :classification, :rationale_words)
     end
 end

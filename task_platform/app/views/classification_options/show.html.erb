@@ -7,7 +7,7 @@
 
 <p>
   <strong>Dataset:</strong>
-  <%= @classification_option.dataset_id %>
+  <%= @classification_option.task.representable_name %>
 </p>
 
 <%= link_to 'Edit', edit_classification_option_path(@classification_option) %> |

@@ -17,8 +17,8 @@
   </div>
 
   <div class="field">
-    <%= form.label :nlp_kind %>
-    <%= form.number_field :nlp_kind %>
+    <%= form.label :task_id %>
+    <%= form.collection_select :task_id, Task.all, :id, :representable_name %>
   </div>
 
   <div class="actions">

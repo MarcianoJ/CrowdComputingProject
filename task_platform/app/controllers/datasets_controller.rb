@@ -65,6 +65,6 @@ class DatasetsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def dataset_params
-      params.require(:dataset).permit(:name, :nlp_kind)
+      params.require(:dataset).permit(:name, :task_id)
     end
 end

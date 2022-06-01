@@ -65,6 +65,6 @@ class ClassificationOptionsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def classification_option_params
-      params.require(:classification_option).permit(:name, :dataset_id)
+      params.require(:classification_option).permit(:name, :task_id)
     end
 end

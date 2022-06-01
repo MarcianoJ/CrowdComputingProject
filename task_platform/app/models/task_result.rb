@@ -1,5 +1,5 @@
 class TaskResult < ApplicationRecord
   belongs_to :user
-  belongs_to :task
-  belongs_to :data_points_task_set
+  belongs_to :data_point
+  belongs_to :task_set
 end

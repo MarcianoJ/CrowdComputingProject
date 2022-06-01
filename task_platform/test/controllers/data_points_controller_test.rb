@@ -17,7 +17,7 @@ class DataPointsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create data_point" do
     assert_difference('DataPoint.count') do
-      post data_points_url, params: { data_point: { classification: @data_point.classification, custom_options: @data_point.custom_options, dataset_id: @data_point.dataset_id, input: @data_point.input, input2: @data_point.input2, maskable_words: @data_point.maskable_words } }
+      post data_points_url, params: { data_point: { classification: @data_point.classification, custom_options: @data_point.custom_options, dataset_id: @data_point.dataset_id, input: @data_point.input, input2: @data_point.input2, maskable_words: @data_point.maskable_words, rationale_words: @data_point.rationale_words } }
     end
 
     assert_redirected_to data_point_url(DataPoint.last)
@@ -34,7 +34,7 @@ class DataPointsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update data_point" do
-    patch data_point_url(@data_point), params: { data_point: { classification: @data_point.classification, custom_options: @data_point.custom_options, dataset_id: @data_point.dataset_id, input: @data_point.input, input2: @data_point.input2, maskable_words: @data_point.maskable_words } }
+    patch data_point_url(@data_point), params: { data_point: { classification: @data_point.classification, custom_options: @data_point.custom_options, dataset_id: @data_point.dataset_id, input: @data_point.input, input2: @data_point.input2, maskable_words: @data_point.maskable_words, rationale_words: @data_point.rationale_words } }
     assert_redirected_to data_point_url(@data_point)
   end
 

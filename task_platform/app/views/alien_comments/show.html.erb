@@ -17,7 +17,7 @@
 
 <p>
   <strong>Alien story:</strong>
-  <%= @alien_comment.alien_story_id %>
+  <%= @alien_comment.alien_story.representable_name %>
 </p>
 
 <%= link_to 'Edit', edit_alien_comment_path(@alien_comment) %> |

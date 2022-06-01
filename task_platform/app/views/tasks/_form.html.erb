@@ -18,7 +18,7 @@
 
   <div class="field">
     <%= form.label :nlp_kind %>
-    <%= form.number_field :nlp_kind %>
+    <%= form.collection_select :nlp_kind, Task.nlp_kinds, :first, :first %>
   </div>
 
   <div class="actions">

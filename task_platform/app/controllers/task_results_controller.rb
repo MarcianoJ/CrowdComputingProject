@@ -65,6 +65,6 @@ class TaskResultsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def task_result_params
-      params.require(:task_result).permit(:user_id, :task_id, :data_points_task_set_id, :classification, :masked_words, :rationale_words)
+      params.require(:task_result).permit(:user_id, :data_point_id, :task_set_id, :classification, :masked_words, :rationale_words)
     end
 end

@@ -17,7 +17,7 @@
       <tr>
         <td><%= task_set.name %></td>
         <td><%= task_set.tutorial %></td>
-        <td><%= task_set.task_id %></td>
+        <td><%= task_set.task.representable_name %></td>
         <td><%= link_to 'Show', task_set %></td>
         <td><%= link_to 'Edit', edit_task_set_path(task_set) %></td>
         <td><%= link_to 'Destroy', task_set, method: :delete, data: { confirm: 'Are you sure?' } %></td>

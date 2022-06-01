@@ -6,8 +6,8 @@
   <thead>
     <tr>
       <th>User</th>
-      <th>Task</th>
-      <th>Data points task set</th>
+      <th>Data point</th>
+      <th>Task set</th>
       <th>Classification</th>
       <th>Masked words</th>
       <th>Rationale words</th>
@@ -19,8 +19,8 @@
     <% @task_results.each do |task_result| %>
       <tr>
         <td><%= task_result.user_id %></td>
-        <td><%= task_result.task_id %></td>
-        <td><%= task_result.data_points_task_set_id %></td>
+        <td><%= task_result.data_point.representable_name %></td>
+        <td><%= task_result.task_set.representable_name %></td>
         <td><%= task_result.classification %></td>
         <td><%= task_result.masked_words %></td>
         <td><%= task_result.rationale_words %></td>

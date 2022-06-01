@@ -19,7 +19,7 @@
         <td><%= alien_comment.untranslated %></td>
         <td><%= alien_comment.translated %></td>
         <td><%= alien_comment.robot_response %></td>
-        <td><%= alien_comment.alien_story_id %></td>
+        <td><%= alien_comment.alien_story.representable_name %></td>
         <td><%= link_to 'Show', alien_comment %></td>
         <td><%= link_to 'Edit', edit_alien_comment_path(alien_comment) %></td>
         <td><%= link_to 'Destroy', alien_comment, method: :delete, data: { confirm: 'Are you sure?' } %></td>

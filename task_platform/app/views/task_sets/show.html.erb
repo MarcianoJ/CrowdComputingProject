@@ -12,7 +12,7 @@
 
 <p>
   <strong>Task:</strong>
-  <%= @task_set.task_id %>
+  <%= @task_set.task.representable_name %>
 </p>
 
 <%= link_to 'Edit', edit_task_set_path(@task_set) %> |

@@ -1,3 +1,3 @@
 class ClassificationOption < ApplicationRecord
-  belongs_to :dataset
+  belongs_to :task
 end

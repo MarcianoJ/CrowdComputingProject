@@ -33,12 +33,17 @@
 
   <div class="field">
     <%= form.label :dataset_id %>
-    <%= form.text_field :dataset_id %>
+    <%= form.collection_select :dataset_id, Dataset.all, :id, :representable_name %>
   </div>
 
   <div class="field">
     <%= form.label :classification %>
     <%= form.text_field :classification %>
+  </div>
+
+  <div class="field">
+    <%= form.label :rationale_words %>
+    <%= form.text_field :rationale_words %>
   </div>
 
   <div class="actions">

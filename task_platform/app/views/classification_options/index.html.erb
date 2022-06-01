@@ -15,7 +15,7 @@
     <% @classification_options.each do |classification_option| %>
       <tr>
         <td><%= classification_option.name %></td>
-        <td><%= classification_option.dataset_id %></td>
+        <td><%= classification_option.task.representable_name %></td>
         <td><%= link_to 'Show', classification_option %></td>
         <td><%= link_to 'Edit', edit_classification_option_path(classification_option) %></td>
         <td><%= link_to 'Destroy', classification_option, method: :delete, data: { confirm: 'Are you sure?' } %></td>
