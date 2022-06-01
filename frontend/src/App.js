@@ -1,16 +1,16 @@
 import logo from './logo.svg';
 import './App.css';
-import GameNav from './components/GameNav'
 import {  unstable_HistoryRouter as HistoryRouter ,
   Routes,
   Route } from "react-router-dom";
 import HighlightTask from './components/HighlightTask'
 import LabelTask from './components/LabelTask'
-import React, { useState } from 'react';
+import React, { useState, useEffect} from 'react';
 import { createBrowserHistory } from "history";
 import { ReactSession }  from 'react-client-session';
-
+require('dotenv').config()
 const history = createBrowserHistory({ window });
+const axios = require('axios').default;
 
 var item = window.localStorage.getItem('index');
 
@@ -31,7 +31,24 @@ function App() {
   const [index, setIndex] = useState(0)
 
   var sentences = ["my first sentence", "my second sentence"]
-
+  useEffect(() => {
+    // Update the document title using the browser API
+    if(index == 0){
+      axios.get(process.env.REACT_APP_BASE_URL+"/api/v1/users")
+      .then(function (response) {
+        // handle success
+        console.log(response);
+      })
+      .catch(function (error) {
+        // handle error
+        console.log(error);
+      })
+      .then(function () {
+        // always executed
+      });
+      console.log(process.env.REACT_APP_BASE_URL)
+    }
+  });
 
   return (
     <HistoryRouter  history={history}>
