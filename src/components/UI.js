@@ -17,7 +17,7 @@ String.prototype.shuffle = function () {
 export default function UI(props){
     var sentence = "We demand the recipe for that delicious strawberry cheesecake";
     var sentenceClear = sentence.substring(0,props.index*2)
-    var sentenceScrambled = sentence.shuffle().substring(props.index*2)
+    var sentenceScrambled = sentence.substring(props.index*2).replace(/\s/g, "").shuffle()
 
     return(
         <div className="d-flex">
