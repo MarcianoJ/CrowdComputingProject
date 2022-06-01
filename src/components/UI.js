@@ -27,7 +27,7 @@ export default function UI(props){
             <div class="box sb1" >Help me translate this message!</div>
             <div class="container">
                 <img src={robot} alt="Robot" width="400" height="500" />
-                <div class="text centered">{parseInt(props.index/35*100)}%</div>
+                <div style={{fontFamily: 'Brush Script MT'}} class="text centered">{parseInt(props.index/35*100)}%</div>
             </div>
 
 
