@@ -1,6 +1,7 @@
 import TextArea from './TextArea'
 import React from 'react'
 import { ReactSession }  from 'react-client-session';
+import UI from './UI';
 
 class HighlightTask extends React.Component {
     constructor(props) {
@@ -54,7 +55,7 @@ class HighlightTask extends React.Component {
         // }
         var new_index = this.props.index + 1
         this.props.setIndex(new_index);
-        if(this.props.sentences.length <= new_index){
+        if(this.props.sentences.length <= new_index || new_index >= 35){
             this.props.history.push("/finished")
             
         }
@@ -70,6 +71,7 @@ class HighlightTask extends React.Component {
         console.log(this.props.data)
         return (
             <div>
+                <UI index= {this.props.index}/>
                 <TextArea  sentence = {this.state.sentence} handler={this.highlightHandler}/>
 
                 <div className="d-flex container justify-content-center selected-items">

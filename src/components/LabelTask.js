@@ -1,6 +1,8 @@
 import React from "react";
 import { ReactSession }  from 'react-client-session';
 import TextArea from "./TextArea";
+import UI from './UI';
+
 class LabelTask extends React.Component{
     constructor(props, history) {
         super(props)
@@ -26,6 +28,7 @@ class LabelTask extends React.Component{
     render(){
         return(
             <div>
+                <UI index= {this.props.index}/>
                 <TextArea sentence = {this.state.sentence}/> 
                 <div className="d-flex justify-content-center buttonbox">
                     <button id="0" className="btn btn-danger" onClick={this.labelSelectHandler}>negative</button>
