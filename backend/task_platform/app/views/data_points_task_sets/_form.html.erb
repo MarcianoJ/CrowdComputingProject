@@ -1,0 +1,27 @@
+<%= form_with(model: data_points_task_set) do |form| %>
+  <% if data_points_task_set.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(data_points_task_set.errors.count, "error") %> prohibited this data_points_task_set from being saved:</h2>
+
+      <ul>
+        <% data_points_task_set.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :data_point_id %>
+    <%= form.collection_select :data_point_id, DataPoint.all, :id, :representable_name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :task_set_id %>
+    <%= form.collection_select :task_set_id, TaskSet.all, :id, :representable_name %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

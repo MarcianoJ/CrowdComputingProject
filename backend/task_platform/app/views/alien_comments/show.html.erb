@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Untranslated:</strong>
+  <%= @alien_comment.untranslated %>
+</p>
+
+<p>
+  <strong>Translated:</strong>
+  <%= @alien_comment.translated %>
+</p>
+
+<p>
+  <strong>Robot response:</strong>
+  <%= @alien_comment.robot_response %>
+</p>
+
+<p>
+  <strong>Alien story:</strong>
+  <%= @alien_comment.alien_story.representable_name %>
+</p>
+
+<%= link_to 'Edit', edit_alien_comment_path(@alien_comment) %> |
+<%= link_to 'Back', alien_comments_path %>

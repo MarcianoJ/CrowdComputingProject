@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Alien Stories</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @alien_stories.each do |alien_story| %>
+      <tr>
+        <td><%= alien_story.name %></td>
+        <td><%= link_to 'Show', alien_story %></td>
+        <td><%= link_to 'Edit', edit_alien_story_path(alien_story) %></td>
+        <td><%= link_to 'Destroy', alien_story, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Alien Story', new_alien_story_path %>

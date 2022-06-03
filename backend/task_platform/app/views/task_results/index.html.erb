@@ -1,0 +1,37 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Task Results</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Data point</th>
+      <th>Task set</th>
+      <th>Classification</th>
+      <th>Masked words</th>
+      <th>Rationale words</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @task_results.each do |task_result| %>
+      <tr>
+        <td><%= task_result.user_id %></td>
+        <td><%= task_result.data_point.representable_name %></td>
+        <td><%= task_result.task_set.representable_name %></td>
+        <td><%= task_result.classification %></td>
+        <td><%= task_result.masked_words %></td>
+        <td><%= task_result.rationale_words %></td>
+        <td><%= link_to 'Show', task_result %></td>
+        <td><%= link_to 'Edit', edit_task_result_path(task_result) %></td>
+        <td><%= link_to 'Destroy', task_result, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Task Result', new_task_result_path %>
