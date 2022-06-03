@@ -17,7 +17,7 @@ const Landing = (props) => {
             }})
 
         })
-        .catch(err => {
+        .catch(err => {      
             console.log(err)
         })
 

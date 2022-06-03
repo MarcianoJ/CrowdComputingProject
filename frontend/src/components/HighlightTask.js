@@ -53,7 +53,7 @@ const HighlightTask = (props) => {
 
     return (
         <div>
-            <UI index= {props.index}/>
+            <UI index= {sentenceIndex}/>
             <TextArea  sentence = {sentence} handler={highlightHandler}/>
 
             <div className="d-flex container justify-content-center selected-items">

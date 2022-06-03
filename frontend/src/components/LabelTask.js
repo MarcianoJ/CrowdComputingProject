@@ -29,7 +29,7 @@ const LabelTask = (props) => {
     
     return(
         <div>
-            <UI index= {this.props.index}/>
+            <UI index= {sentenceIndex}/>
             <TextArea sentence = {sentence}/> 
             <div className="d-flex justify-content-center buttonbox">
                 <button id="0" className="btn btn-danger" onClick={labelSelectHandler}>negative</button>
