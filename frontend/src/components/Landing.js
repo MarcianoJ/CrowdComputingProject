@@ -1,7 +1,6 @@
 import React from 'react'
 import axios from 'axios';
 import uuid from 'react-uuid'
-
 require('dotenv').config()
 
 const Landing = (props) => {
