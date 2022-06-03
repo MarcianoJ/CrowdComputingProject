@@ -7,5 +7,5 @@
 
 ### TODO backend:
 - create endpoint for fetching batch of sentences. it should take in a user_id and a number of sentences to fetch and return the list of sentences. In the logic it should make sure to exclude sentences already submited by the user and to include gold standard sentences. It is also possible for anonymous users to paly the game so it should be able to handle that as well.
-- create enpoint to post results in a batch.
+- create enpoint to post results in a batch. takes in user_id, game_id and the results
   
