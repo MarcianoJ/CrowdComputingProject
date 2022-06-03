@@ -1,9 +1,8 @@
 import React from "react";
-import { ReactSession }  from 'react-client-session';
 import TextArea from "./TextArea";
 import { useLocation, useParams } from "react-router-dom";
-import { useState, useEffect} from 'react';
-import uuid from 'react-uuid'
+import UI from './UI';
+
 const axios = require('axios').default;
 
 
@@ -30,6 +29,7 @@ const LabelTask = (props) => {
     
     return(
         <div>
+            <UI index= {this.props.index}/>
             <TextArea sentence = {sentence}/> 
             <div className="d-flex justify-content-center buttonbox">
                 <button id="0" className="btn btn-danger" onClick={labelSelectHandler}>negative</button>

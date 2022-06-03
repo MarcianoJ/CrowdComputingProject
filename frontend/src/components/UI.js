@@ -1,3 +1,5 @@
+import React from "react";
+
 import alien from './alien.jpg'
 import robot from './robot.jpg'
 
