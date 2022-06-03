@@ -1,7 +1,7 @@
 import React from "react";
 
-import alien from './alien.jpg'
-import robot from './robot.jpg'
+import alien from '../images/alien.jpeg'
+import robot from '../images/robot.jpeg'
 
 String.prototype.shuffle = function () {
     var a = this.split(""),
