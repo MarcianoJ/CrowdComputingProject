@@ -1,7 +1,7 @@
 import TextArea from './TextArea'
 import React from 'react'
-import { ReactSession }  from 'react-client-session';
 import { useLocation, useParams } from "react-router-dom";
+import UI from './UI';
 
 const HighlightTask = (props) => {
     const location = useLocation()
@@ -53,6 +53,7 @@ const HighlightTask = (props) => {
 
     return (
         <div>
+            <UI index= {props.index}/>
             <TextArea  sentence = {sentence} handler={highlightHandler}/>
 
             <div className="d-flex container justify-content-center selected-items">

@@ -8,14 +8,13 @@ import Landing from "./components/Landing"
 function App() {
   const navigate = useNavigate();
   const [data, setData] = useState({})
-  const [index, setIndex] = useState(0)
 
   return (
     <div  >
           <Routes>
             <Route path="/" element={<Landing navigate={navigate}  />} />
-            <Route path="/rational/:gameid" element={<HighlightTask data={data} setData={setData} index={index} setIndex={setIndex} navigate={navigate}  />}/>
-            <Route path="/label/:gameid" element={<LabelTask data={data} setData={setData} index={index} setIndex={setIndex} navigate={navigate}/>}/>
+            <Route path="/rational/:gameid" element={<HighlightTask data={data} setData={setData} navigate={navigate}  />}/>
+            <Route path="/label/:gameid" element={<LabelTask data={data} setData={setData} navigate={navigate}/>}/>
             <Route path="/finished" element={<h3>FINISHED</h3>}/>
           </Routes>
     </div >
