@@ -1,0 +1,22 @@
+<%= form_with(model: alien_story) do |form| %>
+  <% if alien_story.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(alien_story.errors.count, "error") %> prohibited this alien_story from being saved:</h2>
+
+      <ul>
+        <% alien_story.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

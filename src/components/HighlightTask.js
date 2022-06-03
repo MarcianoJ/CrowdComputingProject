@@ -1,98 +1,81 @@
 import TextArea from './TextArea'
 import React from 'react'
 import { ReactSession }  from 'react-client-session';
+import { useLocation, useParams } from "react-router-dom";
 
-class HighlightTask extends React.Component {
-    constructor(props) {
+const HighlightTask = (props) => {
+    const location = useLocation()
+    const { gameid } = useParams()
+    
+    var sentences = location.state.sentences
+    var sentenceIndex = location.state.sentenceIndex
+    var sentence = sentences[sentenceIndex]
 
-        super(props)
-        var index = window.localStorage.getItem('index');
-
-        this.state = {
-            sentence:this.props.sentences[this.props.index]
-        } 
-
-        this.props.data[this.state.sentence]["rational"]=[]
-        this.highlightHandler = this.highlightHandler.bind(this)
-        this.removeHandler = this.removeHandler.bind(this)
-        this.resetHandler = this.resetHandler.bind(this)
-        this.submit = this.submit.bind(this)
-    }
-
-    highlightHandler(e) {
+    //HIGHLIGHT HANDLERS
+    function highlightHandler(e) {
         var sel = window.getSelection().toString();
-        var data = this.props.data 
-        data[this.state.sentence]["rational"] = [...data[this.state.sentence]["rational"], sel]
-        console.log(data)
-        this.props.setData(({...data}))
-
+        var data = props.data 
+        data[sentence]["rational"] = [...data[sentence]["rational"], sel]
+        props.setData(({...data}))
     }
 
-    removeHandler(e){
+    function removeHandler(e){
         var id =e.target.id
-        console.log(this.props.data)
-
-        this.props.data[this.state.sentence]["rational"].splice(id,1)
-        var data = this.props.data 
-
-        console.log("data:  ")
-        console.log(data)
-        console.log({...data})
-        data[this.state.sentence]["rational"] = {...data}[this.state.sentence]["rational"]
-        this.props.setData(({...data}))
+        props.data[sentence]["rational"].splice(id,1)
+        var data = props.data 
+        data[sentence]["rational"] = {...data}[sentence]["rational"]
+        props.setData(({...data}))
     }
 
-    resetHandler(e){
-        var data = this.props.data 
-        data[this.state.sentence]["rational"] = []
-        this.props.setData(({...data}))
+    function resetHandler(e){
+        var data = props.data 
+        data[sentence]["rational"] = []
+        props.setData(({...data}))
     }
 
-    submit(e){
-        // var data = {
-        //     "sentence":
-        // }
-        var new_index = this.props.index + 1
-        this.props.setIndex(new_index);
-        if(this.props.sentences.length <= new_index){
-            this.props.history.push("/finished")
-            
+    //SUBMIT
+    function submit(e){
+        console.log(sentenceIndex)
+        console.log(sentences.length)
+        if(sentenceIndex >= sentences.length-1){
+
+            //TODO: push results to database
+            props.navigate("/finished")
         }
         else{
-            this.props.history.push("/label")
-
+            props.navigate(`/label/${gameid}`, {state:{
+                sentences: sentences,
+                sentenceIndex: sentenceIndex+1
+            }
+            })
         }
-
-
     }
 
-    render() {
-        console.log(this.props.data)
-        return (
-            <div>
-                <TextArea  sentence = {this.state.sentence} handler={this.highlightHandler}/>
+    return (
+        <div>
+            <TextArea  sentence = {sentence} handler={highlightHandler}/>
 
-                <div className="d-flex container justify-content-center selected-items">
+            <div className="d-flex container justify-content-center selected-items">
 
-                    <ul>
-                    {
-                        this.props.data[this.state.sentence]["rational"].map((item, i)=>{
-                            return (
-                            <li key={i}><span className="badge alert-success item">{item}<span className="x" id={i} onClick={this.removeHandler} aria-hidden="true">&times;</span></span></li>
-                            )
-                        })
-                    }
-                    </ul>
-                </div>
-
-                <div className="d-flex justify-content-center buttonbox">
-                    <button className="btn btn-danger" onClick={this.resetHandler}>reset</button>
-                    <button className="btn btn-success"  onClick={this.submit}>next</button>
-                </div>
+                <ul>
+                {
+                    props.data[sentence]["rational"].map((item, i)=>{
+                        return (
+                        <li key={i}><span className="badge alert-success item">{item}<span className="x" id={i} onClick={removeHandler} aria-hidden="true">&times;</span></span></li>
+                        )
+                    })
+                }
+                </ul>
             </div>
 
-        )
-    }
+            <div className="d-flex justify-content-center buttonbox">
+                <button className="btn btn-danger" onClick={resetHandler}>reset</button>
+                <button className="btn btn-success"  onClick={submit}>next</button>
+            </div>
+        </div>
+
+    )
+    
 }
 
 export default HighlightTask

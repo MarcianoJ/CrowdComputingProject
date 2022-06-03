@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Data point:</strong>
+  <%= @data_points_task_set.data_point.representable_name %>
+</p>
+
+<p>
+  <strong>Task set:</strong>
+  <%= @data_points_task_set.task_set.representable_name %>
+</p>
+
+<%= link_to 'Edit', edit_data_points_task_set_path(@data_points_task_set) %> |
+<%= link_to 'Back', data_points_task_sets_path %>
