@@ -11,7 +11,7 @@ const Finished = (props) => {
     return(
         <div>
 
-            <div className="container centered">
+            <div className="container distance">
                     <h3>Congratulations!</h3>
                     <p>you have completed the game!</p>
                     <button onClick={handlePlayagain} className="btn btn-primary">play again</button>
