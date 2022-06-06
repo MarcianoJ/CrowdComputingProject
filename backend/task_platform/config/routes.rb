@@ -16,13 +16,16 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
+      resources :sessions, only: :create
       resources :alien_stories, only: :index
       resource :next_alien_comment, only: :show
       resource :next_data_point, only: :show
       resource :random_task_set, only: :show
       resources :task_results, only: :create
       resources :tasks, only: :index
-      resources :users, only: :index
+      resources :users, only: [:index, :create]
+      resources :batch_task_results, only: :create
+      resources :unfinished_data_points, only: :index
     end
   end
 
