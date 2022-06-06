@@ -24,8 +24,6 @@ const LabelTask = (props) => {
         })
     }
 
-
-    
     
     return(
         <div>

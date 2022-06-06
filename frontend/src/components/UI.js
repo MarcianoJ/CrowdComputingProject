@@ -24,12 +24,12 @@ export default function UI(props){
     return(
         <div className="d-flex">
             <img src={alien} alt="Alien" width="400" height="500" />
-            <div class="box sb2" >{sentenceClear}{sentenceScrambled}</div>
+            <div className="box sb2" >{sentenceClear}{sentenceScrambled}</div>
 
-            <div class="box sb1" >Help me translate this message!</div>
-            <div class="container">
+            <div className="box sb1" >Help me translate this message!</div>
+            <div className="container">
                 <img src={robot} alt="Robot" width="400" height="500" />
-                <div style={{fontFamily: 'Brush Script MT'}} class="text centered">{parseInt(props.index/35*100)}%</div>
+                <div style={{fontFamily: 'Brush Script MT'}} className="text centered">{parseInt(props.index/35*100)}%</div>
             </div>
 
 

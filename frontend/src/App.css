@@ -95,12 +95,25 @@
 .container {
   position: relative;
   text-align: center;
-  color: white;
+}
+
+.landingButtons button {
+  margin-right: 15px;
+  margin-left: 15x;
+
 }
 
 .centered {
   position: absolute;
-  top: 50%;
+  top: 30%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
+
+.form label{
+  display: block;
+  margin-top: 20px;
+}
+
+
+
