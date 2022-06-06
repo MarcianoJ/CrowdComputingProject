@@ -1,4 +1,4 @@
-class Api::V1::RandomTaskSetsController < Api::V1::ApplicationController
+class Api::V1::TaskResultsController < Api::V1::ApplicationController
   # Input:
   # - user_id
   # - task_id
@@ -8,9 +8,7 @@ class Api::V1::RandomTaskSetsController < Api::V1::ApplicationController
   # Output:
   # - next data_point
   def create
-    user = User.find(params[:user_id])
-
-    @task_result = user.task_results.new(task_result_params)
+    @task_result = current_user.task_results.new(task_result_params)
 
     if @task_result.save
       render json: { success: true }, status: :ok
@@ -23,7 +21,6 @@ class Api::V1::RandomTaskSetsController < Api::V1::ApplicationController
 
   def task_result_params
     params.permit(
-      :user_id,
       :task_id,
       :classification,
       :rationale_words,
