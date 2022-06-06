@@ -1,15 +1,14 @@
 import React, { useContext } from 'react'
 import axios from 'axios';
 import UserContext from '../components/User';
-import { useCookies } from 'react-cookie';
-import { handleSignup } from '../utils/utils';
 
-const Signup = (props) => {
+import { useCookies } from 'react-cookie';
+import { handleLogin } from '../utils/utils'
+const Login = (props) => {
     const userContext = useContext(UserContext);
     const [cookies, setCookie, removeCookie] = useCookies();
-
     function handleSubmit(e) {
-        handleSignup(props, userContext, cookies, setCookie)
+       handleLogin(props, userContext, cookies, setCookie)
     }
 
     return (
@@ -17,19 +16,13 @@ const Signup = (props) => {
 
             <div className="container">
                 <div className="form">
-                    <h3 className='mb-5'>create new account</h3>
-
+                    <h3 className='mb-5'>Login</h3>
                     <label>username</label>
                     <input type="text" name="username" id="username" required/>
-                    <div className='error'>
-                        <p id="email_error"></p>
-                    </div>
 
                     <label>password</label>
                     <input type="password" name="password" id="password" required/>
-                    <div className='error'>
-                        <p id="password_error"></p>
-                    </div>
+
 
                     <label/>
                     <button className="btn btn-success" onClick={handleSubmit} > signup</button>
@@ -48,4 +41,4 @@ const Signup = (props) => {
     )
 }
 
-export default Signup
+export default Login

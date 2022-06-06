@@ -57,6 +57,24 @@ textarea {
   margin-top: 50px;
 }
 
-.selected-items{
+.error{
+  background-color: #FFBABA;
+  margin-top: 5px;
+}
+.error p {
+  color: #D8000C;
+  padding-left: 15px;
+  padding-right: 15px;
+
+}
+
+.success{
+  background-color: #DFF2BF;
+  margin-top: 5px;
+}
+.success p {
+  color: #4F8A10;
+  padding-left: 15px;
+  padding-right: 15px;
 
 }

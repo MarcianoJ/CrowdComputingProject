@@ -46,8 +46,7 @@
 
 
 .box {
-  width: 500px;
-
+  width: auto;
   margin: 50px auto;
   border-radius: 15px;
   background: #00bfb6;
@@ -104,8 +103,7 @@
 }
 
 .centered {
-  position: absolute;
-  top: 30%;
+  top: 60%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
@@ -115,5 +113,21 @@
   margin-top: 20px;
 }
 
+nav button {
+margin: 5px;
+}
 
+.other-btn {
+  justify-content: end;
+  margin-right: 50px;
+}
+.home-btn {
+  justify-content: start;
+  margin-left: 50px;
+
+}
+
+.distance {
+  margin-top: 100px;
+}
 
