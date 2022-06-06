@@ -1,43 +1,43 @@
 import React from "react";
-import { ReactSession }  from 'react-client-session';
 import TextArea from "./TextArea";
-class LabelTask extends React.Component{
-    constructor(props, history) {
-        super(props)
+import { useLocation, useParams } from "react-router-dom";
+import UI from './UI';
 
-        this.state = {
-            sentence:this.props.sentences[this.props.index]
-        } 
+const axios = require('axios').default;
 
 
-        this.props.data[this.state.sentence]={"rational":[], "label":-1}
+const LabelTask = (props) => {
+    const location = useLocation()
+    var sentences = location.state.sentences
+    var sentenceIndex = location.state.sentenceIndex
+    var sentence = sentences[sentenceIndex]
+    const { gameid } = useParams()
 
-        this.labelSelectHandler = this.labelSelectHandler.bind(this)
+    function labelSelectHandler(e){
+        var data = props.data
+        data[sentence] = {"label": e.target.id, "rational":[]}
+        props.setData(data)
+        props.navigate(`/rational/${gameid}`, {state:{
+            sentences:sentences,
+            sentenceIndex:sentenceIndex
+        }
+        })
     }
 
-    labelSelectHandler(e){
-        var data = this.props.data
-        console.log(this.state.sentence)
-        data[this.state.sentence].label = e.target.id
-        this.props.setData(data)
-        this.props.history.push("/")
-    }
-
-    render(){
-        return(
-            <div>
-                <TextArea sentence = {this.state.sentence}/> 
-                <div className="d-flex justify-content-center buttonbox">
-                    <button id="0" className="btn btn-danger" onClick={this.labelSelectHandler}>negative</button>
-                    <button id="1" className="btn btn-success" onClick={this.labelSelectHandler}>positive</button>
-                    
-                </div>
-
-
+    
+    return(
+        <div>
+            <UI index= {sentenceIndex}/>
+            <TextArea sentence = {sentence}/> 
+            <div className="d-flex justify-content-center buttonbox">
+                <button id="0" className="btn btn-danger" onClick={labelSelectHandler}>negative</button>
+                <button id="1" className="btn btn-success" onClick={labelSelectHandler}>positive</button>
             </div>
 
-        )
-    }
+
+        </div>
+
+    )
 }
 
 export default LabelTask;
