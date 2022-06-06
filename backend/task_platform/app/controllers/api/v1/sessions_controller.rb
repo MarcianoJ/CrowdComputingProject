@@ -27,7 +27,7 @@ class Api::V1::SessionsController < Api::V1::ApplicationController
         user.save!
       end
 
-      render json: { token: user.token, name: user.name, email: user.email, anonymous: user.anonymous }, status: :ok
+      render json: { token: user.token, id: user.id, name: user.name, email: user.email, anonymous: user.anonymous }, status: :ok
     else
       render json: { errors: ['Credentials are incorrect'] }, status: :not_found
     end

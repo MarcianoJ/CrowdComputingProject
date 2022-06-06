@@ -1,7 +1,8 @@
 class Api::V1::BatchTaskResultsController < Api::V1::ApplicationController
   # Input:
   # - task_results: [
-  #   - task_id
+  #   - task_set_id
+  #   - data_point_id
   #   - classification
   #   - rationale_words
   #   ]
@@ -32,10 +33,11 @@ class Api::V1::BatchTaskResultsController < Api::V1::ApplicationController
   protected
 
   def task_result_params(index)
-    params[:task_results][index].permit(
-      :task_id,
+    params[:task_results][index.to_s].permit(
+      :task_set_id,
+      :data_point_id,
       :classification,
-      :rationale_words,
+      rationale_words: []
     )
   end
 end

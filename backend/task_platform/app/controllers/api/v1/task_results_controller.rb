@@ -1,7 +1,7 @@
 class Api::V1::TaskResultsController < Api::V1::ApplicationController
   # Input:
-  # - user_id
-  # - task_id
+  # - task_set_id
+  # - data_point_id
   # - classification
   # - rationale_words
   #
@@ -21,9 +21,10 @@ class Api::V1::TaskResultsController < Api::V1::ApplicationController
 
   def task_result_params
     params.permit(
-      :task_id,
+      :task_set_id,
+      :data_point_id,
       :classification,
-      :rationale_words,
+      rationale_words: []
     )
   end
 end
