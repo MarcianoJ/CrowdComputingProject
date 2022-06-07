@@ -2,6 +2,7 @@ import React from "react";
 import TextArea from "./TextArea";
 import { useLocation, useParams } from "react-router-dom";
 import UI from './UI';
+import Instructions, {instruction_sentiment_analysis} from "./Instructions";
 
 const axios = require('axios').default;
 
@@ -27,12 +28,15 @@ const LabelTask = (props) => {
     
     return(
         <div>
-            <UI index= {sentenceIndex}/>
-            <TextArea sentence = {sentence}/> 
-            <div className="d-flex justify-content-center buttonbox">
-                <button id="0" className="btn btn-danger" onClick={labelSelectHandler}>negative</button>
-                <button id="1" className="btn btn-success" onClick={labelSelectHandler}>positive</button>
+            <div>
+                <UI index= {sentenceIndex}/>
+                <TextArea sentence = {sentence}/> 
+                <div className="d-flex justify-content-center buttonbox">
+                    <button id="0" className="btn btn-danger" onClick={labelSelectHandler}>negative</button>
+                    <button id="1" className="btn btn-success" onClick={labelSelectHandler}>positive</button>
+                </div>
             </div>
+            <Instructions instruction={instruction_sentiment_analysis} />
 
 
         </div>
