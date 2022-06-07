@@ -28,22 +28,12 @@ const SentimentLabelTask = (props) => {
     
     return(
         <div>
-<<<<<<< HEAD:frontend/src/components/LabelTask.js
-            <div>
-                <UI index= {sentenceIndex}/>
-                <TextArea sentence = {sentence}/> 
-                <div className="d-flex justify-content-center buttonbox">
-                    <button id="0" className="btn btn-danger" onClick={labelSelectHandler}>negative</button>
-                    <button id="1" className="btn btn-success" onClick={labelSelectHandler}>positive</button>
-                </div>
-=======
             <UI index= {sentenceIndex}/>
             <TextArea sentence = {sentence}/> 
             <div className="d-flex justify-content-center buttonbox">
                 <button id="0" className="btn btn-danger" onClick={labelSelectHandler}>negative</button>
                 <button id="1" className="btn btn-secondary" onClick={labelSelectHandler}>neutral</button>
                 <button id="2" className="btn btn-success" onClick={labelSelectHandler}>positive</button>
->>>>>>> main:frontend/src/components/SentimentLabelTask.js
             </div>
             <Instructions instruction={instruction_sentiment_analysis} />
 
