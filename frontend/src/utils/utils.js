@@ -4,25 +4,56 @@ import UserContext from '../components/User';
 
 export function startNewGame(props) {
     console.log('Starting new game')
-    axios.get(process.env.REACT_APP_BASE_URL + "/api/v1/users")
+
+    //START AN SENTIMENT TASK
+    if(Math.random() >= 0.5){
+        axios.get(process.env.REACT_APP_BASE_URL + "/api/v1/users")
+        .then(response => {
+            //TODO: get sentences form api.
+            var sentences = ["Had he known what was going to happen, he would have never stepped into the shower.", "he would have never stepped into the shower"]
+            var gameid = uuid()
+            props.navigate(`sentiment/label/${gameid}`, {state:{
+                sentences: sentences,
+                sentenceIndex: 0
+            }})
+        })
+        .catch(err => {      
+            console.log(err)
+            var sentences = ["Had he known what was going to happen, he would have never stepped into the shower.", "he would have never stepped into the shower"]
+            var gameid = uuid()
+            props.navigate(`sentiment/label/${gameid}`, {state:{
+                sentences: sentences,
+                sentenceIndex: 0
+            }})
+        })
+    }
+
+
+    //START AN ENTAILMENT TASK 
+    else{
+        axios.get(process.env.REACT_APP_BASE_URL + "/api/v1/users")
     .then(response => {
         //TODO: get sentences form api.
-        var sentences = ["Had he known what was going to happen, he would have never stepped into the shower."]
+        var sentences = [["An adult dressed in black holds a stick.", " An adult is walking away, empty-handed"],["A child in a yellow plastic safety swing is laughing as a dark-haired woman in pink and coral pants stands behind her", "A young mother is playing with her daughter in a swing."] ]
         var gameid = uuid()
-        props.navigate(`/label/${gameid}`, {state:{
+        props.navigate(`entailment/label/${gameid}`, {state:{
             sentences: sentences,
             sentenceIndex: 0
         }})
     })
     .catch(err => {      
         console.log(err)
-        var sentences = ["Had he known what was going to happen, he would have never stepped into the shower."]
+        var sentences = [["An adult dressed in black holds a stick.", " An adult is walking away, empty-handed"],["A child in a yellow plastic safety swing is laughing as a dark-haired woman in pink and coral pants stands behind her", "A young mother is playing with her daughter in a swing."] ]
         var gameid = uuid()
-        props.navigate(`/label/${gameid}`, {state:{
+        console.log(sentences)
+        props.navigate(`entailment/label/${gameid}`, {state:{
             sentences: sentences,
             sentenceIndex: 0
         }})
     })
+    }
+
+    
 }
 
 

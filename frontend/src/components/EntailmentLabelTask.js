@@ -5,19 +5,19 @@ import UI from './UI';
 
 const axios = require('axios').default;
 
-
-const LabelTask = (props) => {
+const EntailmentLabelTask = (props) => {
     const location = useLocation()
     var sentences = location.state.sentences
     var sentenceIndex = location.state.sentenceIndex
     var sentence = sentences[sentenceIndex]
+    console.log(sentences)
     const { gameid } = useParams()
 
     function labelSelectHandler(e){
         var data = props.data
-        data[sentence] = {"label": e.target.id, "rational":[]}
+        data[sentence[0]] = {"label": e.target.id, "rational":[]}
         props.setData(data)
-        props.navigate(`/rational/${gameid}`, {state:{
+        props.navigate(`entailment/rational/${gameid}`, {state:{
             sentences:sentences,
             sentenceIndex:sentenceIndex
         }
@@ -28,10 +28,13 @@ const LabelTask = (props) => {
     return(
         <div>
             <UI index= {sentenceIndex}/>
-            <TextArea sentence = {sentence}/> 
+            <TextArea sentence = {sentence[0]}/> 
+            <TextArea sentence = {sentence[1]}/> 
+
             <div className="d-flex justify-content-center buttonbox">
-                <button id="0" className="btn btn-danger" onClick={labelSelectHandler}>negative</button>
-                <button id="1" className="btn btn-success" onClick={labelSelectHandler}>positive</button>
+                <button id="0" className="btn btn-danger" onClick={labelSelectHandler}>entails</button>
+                <button id="1" className="btn btn-secondary" onClick={labelSelectHandler}>neutral</button>
+                <button id="2" className="btn btn-success" onClick={labelSelectHandler}>contradicts</button>
             </div>
 
 
@@ -40,4 +43,4 @@ const LabelTask = (props) => {
     )
 }
 
-export default LabelTask;
+export default EntailmentLabelTask;

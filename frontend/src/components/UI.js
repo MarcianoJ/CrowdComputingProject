@@ -22,13 +22,22 @@ export default function UI(props){
     var sentenceScrambled = sentence.substring(props.index*2).replace(/\s/g, "").shuffle()
 
     return(
-        <div className="d-flex">
-            <img src={alien} alt="Alien" width="400" height="500" />
-            <div className="box sb2" >{sentenceClear}{sentenceScrambled}</div>
+        <div className="d-flex justify-content-center mt-5">
+            <div>
+                <img src={alien} alt="Alien" width="300" />
+            </div>
+            <div className="">
+                <div className="box mb-3">
+                    <p>{sentenceScrambled}</p>
+                </div>
+                <div className="box">
+                    <p>{sentenceClear}</p>
+                </div>
+            </div>
+            
 
-            <div className="box sb1" >Help me translate this message!</div>
-            <div className="container">
-                <img src={robot} alt="Robot" width="400" height="500" />
+            <div >
+                <img src={robot} alt="Robot" width="300" />
                 <div style={{fontFamily: 'Brush Script MT'}} className="text centered">{parseInt(props.index/35*100)}%</div>
             </div>
 
