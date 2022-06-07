@@ -2,6 +2,7 @@ import React from "react";
 import TextArea from "./TextArea";
 import { useLocation, useParams } from "react-router-dom";
 import UI from './UI';
+import Instructions, {instruction_sentiment_analysis} from "./Instructions";
 
 const axios = require('axios').default;
 
@@ -34,6 +35,7 @@ const SentimentLabelTask = (props) => {
                 <button id="1" className="btn btn-secondary" onClick={labelSelectHandler}>neutral</button>
                 <button id="2" className="btn btn-success" onClick={labelSelectHandler}>positive</button>
             </div>
+            <Instructions instruction={instruction_sentiment_analysis} />
 
 
         </div>
