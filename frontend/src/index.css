@@ -21,11 +21,11 @@ div {
   width:10px;
   height:10px;
 }
-.item span:hover{
+.x:hover{
   color: red;
   cursor: pointer;
-
 }
+
 li {
   float: left;
   margin-top:1vh;

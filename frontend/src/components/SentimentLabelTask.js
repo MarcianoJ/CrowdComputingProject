@@ -31,7 +31,8 @@ const SentimentLabelTask = (props) => {
             <TextArea sentence = {sentence}/> 
             <div className="d-flex justify-content-center buttonbox">
                 <button id="0" className="btn btn-danger" onClick={labelSelectHandler}>negative</button>
-                <button id="1" className="btn btn-success" onClick={labelSelectHandler}>positive</button>
+                <button id="1" className="btn btn-secondary" onClick={labelSelectHandler}>neutral</button>
+                <button id="2" className="btn btn-success" onClick={labelSelectHandler}>positive</button>
             </div>
 
 

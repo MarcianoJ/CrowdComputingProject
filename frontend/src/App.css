@@ -130,3 +130,16 @@ margin: 5px;
   margin-top: 100px;
 }
 
+.entailment-box {
+  background-color: #c3c3c344;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 5px;
+
+}
+
+li {
+  margin:0;
+  margin-right: 5px;
+
+}
