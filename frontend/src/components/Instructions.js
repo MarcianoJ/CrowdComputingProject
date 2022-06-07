@@ -53,7 +53,7 @@ export default function Instructions(props) {
 
         function getEntailmentInstructions() {
             return (<div>
-                <h1>Sentiment Instructions</h1>
+                <h1>Entailment Instruction</h1>
                 <p>Press enter</p>
             </div>);
         }

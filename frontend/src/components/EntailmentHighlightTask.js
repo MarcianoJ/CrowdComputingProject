@@ -3,6 +3,7 @@ import React, { useState} from 'react'
 import { useLocation, useParams } from "react-router-dom";
 import UI from './UI';
 import {resetHighlight, removeHighlight, highlight} from '../utils/entailmentHighlights'
+import Instructions, {instruction_entailment} from "./Instructions";
 
 const EntailmentHighlight = (props) => {
     const location = useLocation()
@@ -97,6 +98,8 @@ const EntailmentHighlight = (props) => {
                 <button className="btn btn-danger" onClick={resetHandler}>reset</button>
                 <button className="btn btn-success"  onClick={submit}>next</button>
             </div>
+            <Instructions instruction={instruction_entailment} />
+
         </div>
 
     )

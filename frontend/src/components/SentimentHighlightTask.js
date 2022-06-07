@@ -3,6 +3,7 @@ import React from 'react'
 import { useLocation, useParams } from "react-router-dom";
 import UI from './UI';
 import {resetHighlight, removeHighlight, highlight} from '../utils/sentmentHighlights'
+import Instructions, {instruction_sentiment_analysis} from "./Instructions";
 
 const SentimentHighlightTask = (props) => {
     const location = useLocation()
@@ -64,6 +65,8 @@ const SentimentHighlightTask = (props) => {
                 <button className="btn btn-danger" onClick={resetHandler}>reset</button>
                 <button className="btn btn-success"  onClick={submit}>next</button>
             </div>
+            <Instructions instruction={instruction_sentiment_analysis} />
+
         </div>
 
     )

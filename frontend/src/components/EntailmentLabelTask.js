@@ -2,6 +2,8 @@ import React from "react";
 import TextArea from "./TextArea";
 import { useLocation, useParams } from "react-router-dom";
 import UI from './UI';
+import Instructions, {instruction_entailment} from "./Instructions";
+
 
 const axios = require('axios').default;
 
@@ -36,6 +38,8 @@ const EntailmentLabelTask = (props) => {
                 <button id="1" className="btn btn-secondary" onClick={labelSelectHandler}>neutral</button>
                 <button id="2" className="btn btn-success" onClick={labelSelectHandler}>contradicts</button>
             </div>
+            <Instructions instruction={instruction_entailment} />
+
 
 
         </div>
