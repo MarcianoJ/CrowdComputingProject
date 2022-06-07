@@ -4,12 +4,39 @@ import UserContext from '../components/User';
 
 export function startNewGame(props) {
     console.log('Starting new game')
-    axios.get(process.env.REACT_APP_BASE_URL + "/api/v1/users")
+
+    //START AN SENTIMENT TASK
+    if(Math.random() >= 0.5){
+        axios.get(process.env.REACT_APP_BASE_URL + "/api/v1/users")
+        .then(response => {
+            //TODO: get sentences form api.
+            var sentences = ["Had he known what was going to happen, he would have never stepped into the shower."]
+            var gameid = uuid()
+            props.navigate(`sentiment/label/${gameid}`, {state:{
+                sentences: sentences,
+                sentenceIndex: 0
+            }})
+        })
+        .catch(err => {      
+            console.log(err)
+            var sentences = ["Had he known what was going to happen, he would have never stepped into the shower."]
+            var gameid = uuid()
+            props.navigate(`sentiment/label/${gameid}`, {state:{
+                sentences: sentences,
+                sentenceIndex: 0
+            }})
+        })
+    }
+
+
+    //START AN ENTAILMENT TASK 
+    else{
+        axios.get(process.env.REACT_APP_BASE_URL + "/api/v1/users")
     .then(response => {
         //TODO: get sentences form api.
         var sentences = ["Had he known what was going to happen, he would have never stepped into the shower."]
         var gameid = uuid()
-        props.navigate(`/label/${gameid}`, {state:{
+        props.navigate(`entailment/label/${gameid}`, {state:{
             sentences: sentences,
             sentenceIndex: 0
         }})
@@ -18,11 +45,14 @@ export function startNewGame(props) {
         console.log(err)
         var sentences = ["Had he known what was going to happen, he would have never stepped into the shower."]
         var gameid = uuid()
-        props.navigate(`/label/${gameid}`, {state:{
+        props.navigate(`entailement/label/${gameid}`, {state:{
             sentences: sentences,
             sentenceIndex: 0
         }})
     })
+    }
+
+    
 }
 
 

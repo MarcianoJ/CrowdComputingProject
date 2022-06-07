@@ -27,7 +27,7 @@ const Landing = (props) => {
         <div className="container distance">
             <div >
                 <h3>welcome to the robot game</h3>
-                <p>press the button below to start a new game or create a new account to keep track of your score</p>
+                <p>press the button below to start a new game</p>
                 <div className="landingButtons">
                     <button className="mt-5 btn btn-primary" onClick={handleNewGame}>start game</button>
                 </div>

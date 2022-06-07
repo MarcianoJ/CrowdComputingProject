@@ -6,7 +6,7 @@ import UI from './UI';
 const axios = require('axios').default;
 
 
-const LabelTask = (props) => {
+const SentimentLabelTask = (props) => {
     const location = useLocation()
     var sentences = location.state.sentences
     var sentenceIndex = location.state.sentenceIndex
@@ -17,7 +17,7 @@ const LabelTask = (props) => {
         var data = props.data
         data[sentence] = {"label": e.target.id, "rational":[]}
         props.setData(data)
-        props.navigate(`/rational/${gameid}`, {state:{
+        props.navigate(`sentiment/rational/${gameid}`, {state:{
             sentences:sentences,
             sentenceIndex:sentenceIndex
         }
@@ -40,4 +40,4 @@ const LabelTask = (props) => {
     )
 }
 
-export default LabelTask;
+export default SentimentLabelTask;

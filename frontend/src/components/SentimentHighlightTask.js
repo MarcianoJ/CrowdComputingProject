@@ -3,7 +3,7 @@ import React from 'react'
 import { useLocation, useParams } from "react-router-dom";
 import UI from './UI';
 
-const HighlightTask = (props) => {
+const SentimentHighlightTask = (props) => {
     const location = useLocation()
     const { gameid } = useParams()
     
@@ -79,4 +79,4 @@ const HighlightTask = (props) => {
     
 }
 
-export default HighlightTask
+export default SentimentHighlightTask
