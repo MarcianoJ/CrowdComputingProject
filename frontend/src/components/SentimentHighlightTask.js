@@ -2,48 +2,39 @@ import TextArea from './TextArea'
 import React from 'react'
 import { useLocation, useParams } from "react-router-dom";
 import UI from './UI';
+import {resetHighlight, removeHighlight, highlight} from '../utils/sentmentHighlights'
 
-const HighlightTask = (props) => {
+const SentimentHighlightTask = (props) => {
     const location = useLocation()
     const { gameid } = useParams()
-    
     var sentences = location.state.sentences
     var sentenceIndex = location.state.sentenceIndex
     var sentence = sentences[sentenceIndex]
+    console.log(sentences)
+    console.log(sentenceIndex)
 
     //HIGHLIGHT HANDLERS
     function highlightHandler(e) {
-        var sel = window.getSelection().toString();
-        var data = props.data 
-        data[sentence]["rational"] = [...data[sentence]["rational"], sel]
-        props.setData(({...data}))
+        highlight(e,props,sentence)
     }
 
     function removeHandler(e){
-        var id =e.target.id
-        props.data[sentence]["rational"].splice(id,1)
-        var data = props.data 
-        data[sentence]["rational"] = {...data}[sentence]["rational"]
-        props.setData(({...data}))
+        removeHighlight(e, props, sentence)
     }
 
     function resetHandler(e){
-        var data = props.data 
-        data[sentence]["rational"] = []
-        props.setData(({...data}))
+        resetHighlight(e, props, sentence)
     }
 
     //SUBMIT
     function submit(e){
-        console.log(sentenceIndex)
-        console.log(sentences.length)
-        if(sentenceIndex >= sentences.length-1){
 
+        if(sentenceIndex >= sentences.length-1){
             //TODO: push results to database
             props.navigate("/finished")
         }
         else{
-            props.navigate(`/label/${gameid}`, {state:{
+            props.navigate(`/sentiment/label/${gameid}`, {state:{
                 sentences: sentences,
                 sentenceIndex: sentenceIndex+1
             }
@@ -79,4 +70,4 @@ const HighlightTask = (props) => {
     
 }
 
-export default HighlightTask
+export default SentimentHighlightTask
