@@ -12,7 +12,7 @@ class Api::V1::SessionsController < Api::V1::ApplicationController
     lower_chars = ('a'..'z').to_a
     alphanumeric = (('a'..'z').to_a + ('A'..'Z').to_a + ('0'..'9').to_a).flatten
     generated_password = nil
-    
+
     if params[:email] == 'anonymous'
       name = lower_chars.sample(20).join
       generated_password = alphanumeric.sample(20).to_a.join

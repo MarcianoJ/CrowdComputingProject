@@ -10,7 +10,7 @@ class Api::V1::AlienStoriesController < Api::V1::ApplicationController
         alien_comment_count: alien_story.alien_comments.count
       })
     end
-    
+
     render json: output, status: :ok
   end
 end

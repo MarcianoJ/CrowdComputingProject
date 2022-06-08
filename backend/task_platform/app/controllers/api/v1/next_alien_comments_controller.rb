@@ -17,8 +17,8 @@ class Api::V1::NextAlienCommentsController < Api::V1::ApplicationController
         .where.not(id: alien_comment&.id)
 
     output = (alien_comment&.attributes || {}).merge({
-      previous_alien_comment_count: previous_alien_comments&.size || 0,
-      next_alien_comment_count: next_alien_comments&.size || 0
+      previous_alien_comment_count: previous_alien_comments&.length || 0,
+      next_alien_comment_count: next_alien_comments&.length || 0
     })
 
     render json: output || {}, status: :ok
