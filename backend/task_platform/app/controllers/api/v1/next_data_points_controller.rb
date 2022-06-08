@@ -17,8 +17,8 @@ class Api::V1::NextDataPointsController < Api::V1::ApplicationController
         .where.not(id: data_point&.id)
 
     output = (data_point&.attributes || {}).merge({
-      previous_data_point_count: previous_data_points&.size || 0,
-      next_data_point_count: next_data_points&.size || 0
+      previous_data_point_count: (previous_data_points&.length || 0),
+      next_data_point_count: (next_data_points&.length || 0)
     })
 
     render json: output, status: :ok

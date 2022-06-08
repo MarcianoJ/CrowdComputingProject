@@ -27,6 +27,10 @@ gold_standard_dataset = Dataset.create!(name: 'Example gold standard dataset', g
 gold_standard_dataset.data_points.create!(input: 'Great product, would buy again.', classification: 'positive', rationale_words: ['Great', 'would', 'buy'])
 gold_standard_dataset.data_points.create!(input: 'Never again! This product ruined my life.', classification: 'negative', rationale_words: ['Never', 'ruined'])
 gold_standard_dataset.data_points.create!(input: 'Meh.', classification: 'neutral', rationale_words: ['Meh'])
+gold_standard_dataset.data_points.create!(input: 'I cannot go without this product!', classification: 'positive', rationale_words: ['Cannot', 'go', 'without'])
+gold_standard_dataset.data_points.create!(input: 'Tossed it in the thrash right away', classification: 'negative', rationale_words: ['thrash'])
+gold_standard_dataset.data_points.create!(input: 'I have seen better, I have seen worse...', classification: 'neutral', rationale_words: ['better', 'worse'])
+gold_standard_dataset.data_points.create!(input: 'Shut up and take my money!!!', classification: 'neutral', rationale_words: ['take', 'my', 'money'])
 
 unlabeled_dataset = Dataset.create!(name: 'Example dataset', gold_standard: false, task: task_1)
 
@@ -59,11 +63,11 @@ data_points_for_task_set_2 << unlabeled_dataset.data_points.create!(input: "Frau
 data_points_for_task_set_2 << unlabeled_dataset.data_points.create!(input: "Ordered a computer chair. Took a few weeks to receive but it's perfect! Customer service was hard to get a hold of via email. Very happy with the product.")
 
 
-task_set_1 = TaskSet.create!(name: 'sentiment_analysis_001', task: task_1)
+task_set_1 = TaskSet.create!(name: 'sentiment_analysis_0001', task: task_1)
 task_set_1.data_points = data_points_for_task_set_1
 task_set_1.users = workers.select{ rand > 0.5 }
 
-task_set_2 = TaskSet.create!(name: 'sentiment_analysis_002', task: task_1)
+task_set_2 = TaskSet.create!(name: 'sentiment_analysis_0002', task: task_1)
 task_set_2.data_points = data_points_for_task_set_2
 task_set_2.users = workers.select{ rand > 0.5 }
 
