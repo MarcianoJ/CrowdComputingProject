@@ -6,7 +6,7 @@ export default function GameNav(props) {
     const userContext = useContext(UserContext);
     const [cookies, setCookie, removeCookie] = useCookies();
     return(
-        <nav className="navbar bg-light sticky-top">
+        <nav className="navbar bg-light">
             <div className='home-btn'>
                 <button  className="btn btn-primary" onClick={()=>{props.navigate("/")}}>home</button>
             </div>
