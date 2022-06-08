@@ -45,7 +45,7 @@ export default function Instructions(props) {
 
 
         function getSentimentInstructions() {
-            return (<div>
+            return (<div class="instructions">
                 <h1>Sentiment Instructions</h1>
                 <p>Press enter</p>
             </div>);
