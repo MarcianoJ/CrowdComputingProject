@@ -193,3 +193,10 @@ li {
 textarea.readonly {
   background-color: rgb(235, 235, 235);
 }
+
+
+/* Sentence label in entailment text */
+.sentence-label h5 {
+  text-align: right;
+  width: 130px;
+}

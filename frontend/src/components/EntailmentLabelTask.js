@@ -7,6 +7,10 @@ import TaskTitle, {entailment_classify, entailment_classify_instruction} from ".
 
 const axios = require('axios').default;
 
+export var entailment_label_contradicts = 0
+export var entailment_label_is_neutral = 1
+export var entailment_label_entails = 2
+
 const EntailmentLabelTask = (props) => {
     const location = useLocation()
     var sentences = location.state.sentences
@@ -45,14 +49,14 @@ const EntailmentLabelTask = (props) => {
         <div>
             <UI index= {sentenceIndex}/>
             <TaskTitle task={entailment_classify}/>
-            <TextArea sentence={sentence[0]} header="Sentence 1: " readOnly={true} /> 
-            <TextArea sentence={sentence[1]} header="Sentence 2: " readOnly={true} /> 
+            <TextArea sentence={sentence[0]} header="Context:" readOnly={true} /> 
+            <TextArea sentence={sentence[1]} header="Statement:" readOnly={true} /> 
 
             <TaskTitle task={entailment_classify_instruction}/>
             <div className="d-flex justify-content-center buttonbox">
-                <button id="0" className="btn btn-danger" onClick={labelSelectHandler}>contradicts</button>
-                <button id="1" className="btn btn-secondary" onClick={labelSelectHandler}>neutral</button>
-                <button id="2" className="btn btn-success" onClick={labelSelectHandler}>entails</button>
+                <button id={entailment_label_contradicts} className="btn btn-danger" onClick={labelSelectHandler}>contradicts</button>
+                <button id={entailment_label_is_neutral} className="btn btn-secondary" onClick={labelSelectHandler}>neutral</button>
+                <button id={entailment_label_entails} className="btn btn-success" onClick={labelSelectHandler}>entails</button>
             </div>
             <div className="d-flex justify-content-between footer-div">
                 <button id="2" className="btn btn-primary footer-btn-left" onClick={goBackHandler}>go back</button>

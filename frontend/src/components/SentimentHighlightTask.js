@@ -5,14 +5,27 @@ import UI from './UI';
 import {resetHighlight, removeHighlight, highlight} from '../utils/sentmentHighlights'
 import Instructions, {instruction_sentiment_analysis} from "./Instructions";
 import TaskTitle, { sentiment_highlight, sentiment_highlight_instruction } from './TaskTitle';
-
+import {sentiment_label_negative, sentiment_label_neutral, sentiment_label_positive} from './SentimentLabelTask'
 const SentimentHighlightTask = (props) => {
     const location = useLocation()
     const { gameid } = useParams()
     var sentences = location.state.sentences
     var sentenceIndex = location.state.sentenceIndex
     var sentence = sentences[sentenceIndex]
-    console.log(props.data)
+
+    var data = props.data
+    function getSentimentLabel() {
+        var label_id = data[sentence].label;
+        if (label_id == sentiment_label_negative) {
+            return "negative";
+        } else if (label_id == sentiment_label_neutral) {
+            return "neutral";
+        } else if (label_id == sentiment_label_positive) {
+            return "postive";
+        } else {
+            return ""
+        }
+    }
 
 
     //HIGHLIGHT HANDLERS
@@ -55,8 +68,8 @@ const SentimentHighlightTask = (props) => {
     return (
         <div>
             <UI index= {sentenceIndex}/>
-            <TaskTitle task={sentiment_highlight}/>
-            <TaskTitle task={sentiment_highlight_instruction}/>
+            <TaskTitle task={sentiment_highlight} label={getSentimentLabel()}/>
+            <TaskTitle task={sentiment_highlight_instruction} label={getSentimentLabel()}/>
 
             <TextArea  sentence = {sentence} handler={highlightHandler} header="" readOnly={false}/>
             <div className="d-flex container justify-content-center">
@@ -72,7 +85,7 @@ const SentimentHighlightTask = (props) => {
             </div>
             <div className="d-flex justify-content-center buttonbox">
                 <button className="btn btn-danger" onClick={resetHandler}>reset</button>
-                <button className="btn btn-success"  onClick={submit}>finished</button>
+                <button className="btn btn-success"  onClick={submit}>finish</button>
             </div>
             <div className="d-flex justify-content-between footer-div">
                 <button id="2" className="btn btn-primary footer-btn-left" onClick={goBackHandler}>go back</button>

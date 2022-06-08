@@ -7,6 +7,10 @@ import TaskTitle, { sentiment_classify, sentiment_classify_instruction } from ".
 
 const axios = require('axios').default;
 
+export var sentiment_label_negative = 0
+export var sentiment_label_neutral = 1
+export var sentiment_label_positive = 2
+
 
 const SentimentLabelTask = (props) => {
     const location = useLocation()
@@ -14,11 +18,11 @@ const SentimentLabelTask = (props) => {
     var sentenceIndex = location.state.sentenceIndex
     var sentence = sentences[sentenceIndex]
     const { gameid } = useParams()
-    console.log(props.data)
 
     function labelSelectHandler(e){
         var data = props.data
         data[sentence] = {"label": e.target.id, "rational":[]}
+        
         props.setData(data)
         props.navigate(`sentiment/rational/${gameid}`, {state:{
             sentences:sentences,
@@ -51,9 +55,9 @@ const SentimentLabelTask = (props) => {
 
             <TaskTitle task={sentiment_classify_instruction}/>
             <div className="d-flex justify-content-center buttonbox">
-                <button id="0" className="btn btn-danger" onClick={labelSelectHandler}>negative</button>
-                <button id="1" className="btn btn-secondary" onClick={labelSelectHandler}>neutral</button>
-                <button id="2" className="btn btn-success" onClick={labelSelectHandler}>positive</button>
+                <button id={sentiment_label_negative} className="btn btn-danger" onClick={labelSelectHandler}>negative</button>
+                <button id={sentiment_label_neutral} className="btn btn-secondary" onClick={labelSelectHandler}>neutral</button>
+                <button id={sentiment_label_positive} className="btn btn-success" onClick={labelSelectHandler}>positive</button>
             </div>
             <div className="d-flex justify-content-between footer-div">
                 <button id="2" className="btn btn-primary footer-btn-left" onClick={goBackHandler}>go back</button>

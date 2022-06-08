@@ -17,18 +17,28 @@ export default function TaskTitle(props) {
     const userContext = useContext(UserContext);
     const [cookies, setCookie, removeCookie] = useCookies();
     
+    
     var task = props.task
     var showTitle = task && task != no_task
-
+    var label = getLabel();
+    console.log(label)
     return (
         showTitle ? 
             <div class="container justify-content-center">
-                { getTitle(task) }
+                { getTitle(task, label) }
             </div>
             : null
         )
 
     // todo: if takes too long: show hint to press help.
+
+    function getLabel() {
+        if (props.label) {
+            return props.label.toString()
+        } else {
+            return ""
+        }
+    }
 
     function createTitle(title, subtitle) {
         return <div class="mb-3">
@@ -41,43 +51,62 @@ export default function TaskTitle(props) {
             {explanation}
         </h5>
     }
+    function createEmptyExplanation() {
+        return <br/>
+    }
 
-    function getTitle (task) {
+
+
+    function getTitle (task, label) {
         if (task && task != no_task) {
             if (task == entailment_classify) {
                 return createTitle(
                     "Entailment Challenge",
-                    "Please indicate whether the second statement is entails, contradicts, or is neutral towards the first statement"
+                    "Select whether the statement entails, contradicts or stands neutral towards the context."
                 );
             } else if (task == entailment_classify_instruction) {
-                return createExplanation("Follow these instructions carefully")
+                return createEmptyExplanation() //createExplanation("Press help for more information.")
             }
             
             else if (task == entailment_highlight) {
+                var description = ""
+                if (label == "is_neutral") {
+                    description =  "Highlight which part of the context stands neutral towards the statement, followed by the part of the statement that it corresponds to."
+                } else if (label == "contradicts") {
+                    description =  "Highlight which part of the context contradicts the statement, followed by the part of the statement that it contradicts."
+                } else if (label == "entails") {
+                    description =  "Highlight which part of the context the statement entails from, followed by the part of the statement that it entails."
+                }
                 return createTitle(
                     "Entailment Challenge",
-                    "Please select words from the first label and second label that made you select the classification."
+                    description
                 )
             } else if (task == entailment_highlight_instruction) {
-                return createExplanation("Follow these instructions carefully")
-            } 
-            
-            else if (task == sentiment_classify) {
+                var instruction = ""
+                if (label == "is_neutral") {
+                    instruction =  "Highlight at least one part of the context that stands neutral towards the statement. Try to select the most important ones. Press finish when done."
+                } else if (label == "contradicts") {
+                    instruction =  "Try to highlight as many parts of the context and statement, but try to focus on the most important ones. Press finish when done."
+                } else if (label == "entails") {
+                    instruction =  "Try to highlight as many parts of the context and statement, but try to focus on the most important ones. Press finish when done."
+                }
+                return createExplanation(instruction)
+            } else if (task == sentiment_classify) {
                 return createTitle(
                     "Sentiment challenge",
-                    "Please select words from the first label and second label that made you select the classification."
+                    "Is the sentiment behind the following text negative, neutral or positive?"
                 )
             } else if (task == sentiment_classify_instruction) {
-                return createExplanation("Follow these instructions carefully")
+                return createEmptyExplanation(); //createExplanation("Please select the corresponding label. When in doubt, choose neutral.")
             } 
             
             else if (task == sentiment_highlight) {
                 return  createTitle(
                     "Sentiment challenge",
-                    ">Please highlight the words that explains you choice of class."
+                    "Please highlight all parts of the text that make the text ".concat(label + ".")
                 )
             } else if (task == sentiment_highlight_instruction) {
-                return createExplanation("Follow these instructions carefully")
+                return null; //createExplanation("Follow these instructions carefully")
             }
         }
         return null

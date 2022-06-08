@@ -5,17 +5,31 @@ import UI from './UI';
 import {resetHighlight, removeHighlight, highlight} from '../utils/entailmentHighlights'
 import Instructions, {instruction_entailment} from "./Instructions";
 import TaskTitle, {entailment_highlight, entailment_highlight_instruction} from "./TaskTitle";
+import { entailment_label_contradicts, entailment_label_is_neutral, entailment_label_entails } from './EntailmentLabelTask';
 
 const EntailmentHighlight = (props) => {
     const location = useLocation()
     const { gameid } = useParams()
     const [selectStatus, setSelectStatus] = useState(0)
-    console.log(props.data)
-
     
     var sentences = location.state.sentences
     var sentenceIndex = location.state.sentenceIndex
     var sentence = sentences[sentenceIndex]
+
+    var data = props.data
+    function getSentimentLabel() {
+        var label_id = data[sentence[0]].label;
+        if (label_id == entailment_label_contradicts) {
+            return "contradicts";
+        } else if (label_id == entailment_label_is_neutral) {
+            return "is_neutral";
+        } else if (label_id == entailment_label_entails) {
+            return "entails";
+        } else {
+            return ""
+        }
+    }
+
 
     //HIGHLIGHT HANDLERS
     function highlightHandler(e) {
@@ -73,11 +87,11 @@ const EntailmentHighlight = (props) => {
         <div>
             <UI index= {sentenceIndex}/>
 
-            <TaskTitle task={entailment_highlight}/>
-            <TaskTitle task={entailment_highlight_instruction} />
+            <TaskTitle task={entailment_highlight} label={getSentimentLabel()}/>
 
-            <TextArea id={0} sentence = {sentence[0]} handler={highlightHandler} header="Sentence 1: " readOnly={false}/>
-            <TextArea id={1} sentence = {sentence[1]} handler={highlightHandler} header="Sentence 2: " readOnly={false}/> 
+            <TextArea id={0} sentence = {sentence[0]} handler={highlightHandler} header="Context: " readOnly={false}/>
+            <TextArea id={1} sentence = {sentence[1]} handler={highlightHandler} header="Statement: " readOnly={false}/> 
+
 
             <div className="d-flex container justify-content-center">
 
@@ -95,10 +109,12 @@ const EntailmentHighlight = (props) => {
                 }
                 </ul>
             </div>
+            <TaskTitle task={entailment_highlight_instruction} label={getSentimentLabel()}/>
             <div className="d-flex justify-content-center buttonbox">
                 <button className="btn btn-danger" onClick={resetHandler}>reset</button>
-                <button className="btn btn-success"  onClick={submit}>finished</button>
+                <button className="btn btn-success"  onClick={submit}>finish</button>
             </div>
+
             <div className="d-flex justify-content-between footer-div">
                 <button id="2" className="btn btn-primary footer-btn-left" onClick={goBackHandler}>go back</button>
                 <Instructions instruction={instruction_entailment} />
