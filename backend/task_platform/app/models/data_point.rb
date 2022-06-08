@@ -12,4 +12,10 @@ class DataPoint < ApplicationRecord
         .where(task_results: { id: nil })
         .distinct
   }
+
+  scope :finished_for_user, ->(user, task_set){
+    joins(:task_sets).joins(:task_results)
+        .where(task_sets: { id: task_set.id })
+        .distinct
+  }
 end
