@@ -4,7 +4,7 @@ import { useLocation, useParams } from "react-router-dom";
 import UI from './UI';
 import {resetHighlight, removeHighlight, highlight} from '../utils/sentmentHighlights'
 import Instructions, {instruction_sentiment_analysis} from "./Instructions";
-import TaskTitle, { sentiment_highlight } from './TaskTitle';
+import TaskTitle, { sentiment_highlight, sentiment_highlight_instruction } from './TaskTitle';
 
 const SentimentHighlightTask = (props) => {
     const location = useLocation()
@@ -56,10 +56,10 @@ const SentimentHighlightTask = (props) => {
         <div>
             <UI index= {sentenceIndex}/>
             <TaskTitle task={sentiment_highlight}/>
+            <TaskTitle task={sentiment_highlight_instruction}/>
+
             <TextArea  sentence = {sentence} handler={highlightHandler} header="" readOnly={false}/>
-
             <div className="d-flex container justify-content-center">
-
                 <ul>
                 {
                     props.data[sentence]["rational"].map((item, i)=>{
@@ -70,7 +70,6 @@ const SentimentHighlightTask = (props) => {
                 }
                 </ul>
             </div>
-
             <div className="d-flex justify-content-center buttonbox">
                 <button className="btn btn-danger" onClick={resetHandler}>reset</button>
                 <button className="btn btn-success"  onClick={submit}>finished</button>

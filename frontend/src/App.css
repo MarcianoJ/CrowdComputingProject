@@ -116,6 +116,10 @@ nav button {
 margin: 5px;
 }
 
+.buttonbox button{
+  margin-top: 0px;
+}
+
 .other-btn {
   justify-content: end;
   margin-right: 50px;

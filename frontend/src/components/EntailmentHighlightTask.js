@@ -4,7 +4,7 @@ import { useLocation, useParams } from "react-router-dom";
 import UI from './UI';
 import {resetHighlight, removeHighlight, highlight} from '../utils/entailmentHighlights'
 import Instructions, {instruction_entailment} from "./Instructions";
-import TaskTitle, {entailment_highlight} from "./TaskTitle";
+import TaskTitle, {entailment_highlight, entailment_highlight_instruction} from "./TaskTitle";
 
 const EntailmentHighlight = (props) => {
     const location = useLocation()
@@ -74,6 +74,8 @@ const EntailmentHighlight = (props) => {
             <UI index= {sentenceIndex}/>
 
             <TaskTitle task={entailment_highlight}/>
+            <TaskTitle task={entailment_highlight_instruction} />
+
             <TextArea id={0} sentence = {sentence[0]} handler={highlightHandler} header="Sentence 1: " readOnly={false}/>
             <TextArea id={1} sentence = {sentence[1]} handler={highlightHandler} header="Sentence 2: " readOnly={false}/> 
 
@@ -93,7 +95,6 @@ const EntailmentHighlight = (props) => {
                 }
                 </ul>
             </div>
-
             <div className="d-flex justify-content-center buttonbox">
                 <button className="btn btn-danger" onClick={resetHandler}>reset</button>
                 <button className="btn btn-success"  onClick={submit}>finished</button>
