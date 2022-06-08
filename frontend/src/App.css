@@ -157,7 +157,7 @@ li {
   width: 80%;
   left: 10%;
   top: 10%;
-  min-height: 80%;
+  height: 80%;
   background: #e6f8f7;
   border: 2px solid;
   border-color: #9eeeea;
@@ -172,4 +172,10 @@ li {
   border-radius: 25px;
   width: 38px;
   height: 38px;
+}
+.instruction-container .instructions {
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+  overflow: scroll;
 }
