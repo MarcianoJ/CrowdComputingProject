@@ -49,8 +49,17 @@ textarea {
 }
 
 .buttonbox button{
-  margin-left: 30px;
-  margin-top: 50px;
+  margin:20px;
+
+}
+
+.footer-div {
+  padding-bottom:10px;
+  padding-top:10px;
+  z-index: -1;
+  position: -webkit-sticky; /* Safari */
+  position: sticky;
+  bottom: 0;
 }
 
 .error{

@@ -11,8 +11,8 @@ const SentimentHighlightTask = (props) => {
     var sentences = location.state.sentences
     var sentenceIndex = location.state.sentenceIndex
     var sentence = sentences[sentenceIndex]
-    console.log(sentences)
-    console.log(sentenceIndex)
+    console.log(props.data)
+
 
     //HIGHLIGHT HANDLERS
     function highlightHandler(e) {
@@ -43,12 +43,20 @@ const SentimentHighlightTask = (props) => {
         }
     }
 
+    function goBackHandler(e) {
+        props.navigate(`/sentiment/label/${gameid}`, {state:{
+            sentences:sentences,
+            sentenceIndex:sentenceIndex
+        }
+        })
+    }
+
     return (
         <div>
             <UI index= {sentenceIndex}/>
             <TextArea  sentence = {sentence} handler={highlightHandler}/>
 
-            <div className="d-flex container justify-content-center selected-items">
+            <div className="d-flex container justify-content-center">
 
                 <ul>
                 {
@@ -65,7 +73,10 @@ const SentimentHighlightTask = (props) => {
                 <button className="btn btn-danger" onClick={resetHandler}>reset</button>
                 <button className="btn btn-success"  onClick={submit}>next</button>
             </div>
-            <Instructions instruction={instruction_sentiment_analysis} />
+            <div className="d-flex justify-content-between footer-div">
+                <button id="2" className="btn btn-primary footer-btn-left" onClick={goBackHandler}>go back</button>
+                <Instructions instruction={instruction_sentiment_analysis} />
+            </div>
 
         </div>
 

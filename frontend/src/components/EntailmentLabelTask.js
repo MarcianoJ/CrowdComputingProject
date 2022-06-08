@@ -12,8 +12,8 @@ const EntailmentLabelTask = (props) => {
     var sentences = location.state.sentences
     var sentenceIndex = location.state.sentenceIndex
     var sentence = sentences[sentenceIndex]
-    console.log(sentences)
     const { gameid } = useParams()
+    console.log(props.data)
 
     function labelSelectHandler(e){
         var data = props.data
@@ -26,6 +26,20 @@ const EntailmentLabelTask = (props) => {
         })
     }
 
+
+    function goBackHandler(e) {
+        if(sentenceIndex == 0){
+            props.navigate('/')
+        }
+        else{
+            props.navigate(`entailment/rational/${gameid}`, {state:{
+                sentences:sentences,
+                sentenceIndex:sentenceIndex-1
+            }
+            })
+        }   
+    }
+
     
     return(
         <div>
@@ -34,14 +48,14 @@ const EntailmentLabelTask = (props) => {
             <TextArea sentence = {sentence[1]}/> 
 
             <div className="d-flex justify-content-center buttonbox">
-                <button id="0" className="btn btn-danger" onClick={labelSelectHandler}>entails</button>
+                <button id="0" className="btn btn-danger" onClick={labelSelectHandler}>contradicts</button>
                 <button id="1" className="btn btn-secondary" onClick={labelSelectHandler}>neutral</button>
-                <button id="2" className="btn btn-success" onClick={labelSelectHandler}>contradicts</button>
+                <button id="2" className="btn btn-success" onClick={labelSelectHandler}>entails</button>
             </div>
-            <Instructions instruction={instruction_entailment} />
-
-
-
+            <div className="d-flex justify-content-between footer-div">
+                <button id="2" className="btn btn-primary footer-btn-left" onClick={goBackHandler}>go back</button>
+                <Instructions instruction={instruction_entailment} />
+            </div>
         </div>
 
     )

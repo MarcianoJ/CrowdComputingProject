@@ -1,13 +1,9 @@
 
 
 export function highlight(e,props,sentence) {
-    console.log(sentence)
     var selStart = e.target.selectionStart
     var selEnd = e.target.selectionEnd
     var data = props.data 
-
-    var sel = window.getSelection().toString();
-    console.log(sel)
     
     if (sentence.substring(selStart, selEnd) == " " || sentence.substring(selStart, selEnd) == ""){
         return

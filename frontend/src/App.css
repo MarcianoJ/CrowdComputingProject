@@ -146,12 +146,8 @@ li {
 
 /* Instruction container */
 .instruction-button-open {
-  position: fixed;
-  right: 10px;
-  bottom: 10px;
-  width: 100px;
-  height: 50px;
 }
+
 .instruction-container {
   position: fixed;
   width: 80%;
@@ -172,4 +168,12 @@ li {
   border-radius: 25px;
   width: 38px;
   height: 38px;
+}
+
+.footer-btn-right {
+  margin-right: 50px;
+}
+
+.footer-btn-left {
+  margin-left: 50px;
 }

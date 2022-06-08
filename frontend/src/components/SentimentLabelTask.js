@@ -13,6 +13,7 @@ const SentimentLabelTask = (props) => {
     var sentenceIndex = location.state.sentenceIndex
     var sentence = sentences[sentenceIndex]
     const { gameid } = useParams()
+    console.log(props.data)
 
     function labelSelectHandler(e){
         var data = props.data
@@ -25,6 +26,21 @@ const SentimentLabelTask = (props) => {
         })
     }
 
+
+    function goBackHandler(e) {
+        if(sentenceIndex == 0){
+            props.navigate('/')
+        }
+        else{
+            props.navigate(`entailment/rational/${gameid}`, {state:{
+                sentences:sentences,
+                sentenceIndex:sentenceIndex-1
+            }
+            })
+        }   
+    }
+
+
     
     return(
         <div>
@@ -35,8 +51,10 @@ const SentimentLabelTask = (props) => {
                 <button id="1" className="btn btn-secondary" onClick={labelSelectHandler}>neutral</button>
                 <button id="2" className="btn btn-success" onClick={labelSelectHandler}>positive</button>
             </div>
-            <Instructions instruction={instruction_sentiment_analysis} />
-
+            <div className="d-flex justify-content-between footer-div">
+                <button id="2" className="btn btn-primary footer-btn-left" onClick={goBackHandler}>go back</button>
+                <Instructions instruction={instruction_sentiment_analysis} />
+            </div>
 
         </div>
 
