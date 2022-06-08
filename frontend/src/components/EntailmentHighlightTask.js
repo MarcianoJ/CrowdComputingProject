@@ -4,6 +4,7 @@ import { useLocation, useParams } from "react-router-dom";
 import UI from './UI';
 import {resetHighlight, removeHighlight, highlight} from '../utils/entailmentHighlights'
 import Instructions, {instruction_entailment} from "./Instructions";
+import TaskTitle, {entailment_highlight} from "./TaskTitle";
 
 const EntailmentHighlight = (props) => {
     const location = useLocation()
@@ -71,8 +72,10 @@ const EntailmentHighlight = (props) => {
     return (
         <div>
             <UI index= {sentenceIndex}/>
-            <TextArea id={0} sentence = {sentence[0]} handler={highlightHandler}/>
-            <TextArea id={1} sentence = {sentence[1]} handler={highlightHandler}/> 
+
+            <TaskTitle task={entailment_highlight}/>
+            <TextArea id={0} sentence = {sentence[0]} handler={highlightHandler} header="Sentence 1: " readOnly={false}/>
+            <TextArea id={1} sentence = {sentence[1]} handler={highlightHandler} header="Sentence 2: " readOnly={false}/> 
 
             <div className="d-flex container justify-content-center">
 
@@ -93,7 +96,7 @@ const EntailmentHighlight = (props) => {
 
             <div className="d-flex justify-content-center buttonbox">
                 <button className="btn btn-danger" onClick={resetHandler}>reset</button>
-                <button className="btn btn-success"  onClick={submit}>next</button>
+                <button className="btn btn-success"  onClick={submit}>finished</button>
             </div>
             <div className="d-flex justify-content-between footer-div">
                 <button id="2" className="btn btn-primary footer-btn-left" onClick={goBackHandler}>go back</button>

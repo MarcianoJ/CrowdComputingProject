@@ -3,7 +3,7 @@ import TextArea from "./TextArea";
 import { useLocation, useParams } from "react-router-dom";
 import UI from './UI';
 import Instructions, {instruction_entailment} from "./Instructions";
-
+import TaskTitle, {entailment_classify} from "./TaskTitle";
 
 const axios = require('axios').default;
 
@@ -44,8 +44,9 @@ const EntailmentLabelTask = (props) => {
     return(
         <div>
             <UI index= {sentenceIndex}/>
-            <TextArea sentence = {sentence[0]}/> 
-            <TextArea sentence = {sentence[1]}/> 
+            <TaskTitle task={entailment_classify}/>
+            <TextArea sentence={sentence[0]} header="Sentence 1: " readOnly={true} /> 
+            <TextArea sentence={sentence[1]} header="Sentence 2: " readOnly={true} /> 
 
             <div className="d-flex justify-content-center buttonbox">
                 <button id="0" className="btn btn-danger" onClick={labelSelectHandler}>contradicts</button>
