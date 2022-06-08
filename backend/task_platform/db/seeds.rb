@@ -10,13 +10,17 @@
 admin = User.create!(name: 'Admin', email: 'admin@example.com', password: 'testtest', role: :admin)
 workers = 10.times.map { |index| User.create!(name: 'Worker 1', email: "worker_#{index}@example.com", password: 'testtest', role: :user) }
 
-task_1 = Task.create!(name: 'Sentiment analysis', nlp_kind: :sentiment_analysis)
-task_2 = Task.create!(name: 'Textual entailment', nlp_kind: :textual_entailment)
-
+task_1 = Task.create!(name: 'Sentiment analysis', nlp_kind: :sentiment_analysis, multi_input: false)
 
 task_1.classification_options.create!(name: 'positive')
 task_1.classification_options.create!(name: 'neutral')
 task_1.classification_options.create!(name: 'negative')
+
+task_2 = Task.create!(name: 'Textual entailment', nlp_kind: :textual_entailment, multi_input: true)
+
+task_2.classification_options.create!(name: 'entails')
+task_2.classification_options.create!(name: 'neutral')
+task_2.classification_options.create!(name: 'contradicts')
 
 gold_standard_dataset = Dataset.create!(name: 'Example gold standard dataset', gold_standard: true, task: task_1)
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_06_06_121206) do
+ActiveRecord::Schema.define(version: 2022_06_08_095413) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -79,6 +79,8 @@ ActiveRecord::Schema.define(version: 2022_06_06_121206) do
     t.string "rationale_words", array: true
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "rationale_words2", array: true
+    t.string "free_text_explanation"
     t.index ["data_point_id"], name: "index_task_results_on_data_point_id"
     t.index ["task_set_id"], name: "index_task_results_on_task_set_id"
     t.index ["user_id"], name: "index_task_results_on_user_id"
@@ -98,6 +100,7 @@ ActiveRecord::Schema.define(version: 2022_06_06_121206) do
     t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "finished", default: false, null: false
     t.index ["task_set_id"], name: "index_task_sets_users_on_task_set_id"
     t.index ["user_id"], name: "index_task_sets_users_on_user_id"
   end
@@ -108,6 +111,7 @@ ActiveRecord::Schema.define(version: 2022_06_06_121206) do
     t.boolean "has_custom_options", default: false, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "multi_input", default: false, null: false
   end
 
   create_table "users", force: :cascade do |t|
