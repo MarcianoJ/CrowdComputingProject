@@ -4,7 +4,6 @@ import {startNewGame} from "../utils/utils.js"
 const Finished = (props) => {
 
     function handlePlayagain() {
-        console.log("paly again")
         startNewGame(props)
     }
 

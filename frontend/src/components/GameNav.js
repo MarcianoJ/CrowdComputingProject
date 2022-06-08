@@ -5,8 +5,6 @@ import { useCookies } from 'react-cookie';
 export default function GameNav(props) {
     const userContext = useContext(UserContext);
     const [cookies, setCookie, removeCookie] = useCookies();
-
-    console.log(userContext)
     return(
         <nav className="navbar bg-light">
             <div className='home-btn'>

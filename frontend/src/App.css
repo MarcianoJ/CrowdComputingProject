@@ -116,6 +116,10 @@ nav button {
 margin: 5px;
 }
 
+.buttonbox button{
+  margin-top: 0px;
+}
+
 .other-btn {
   justify-content: end;
   margin-right: 50px;
@@ -146,12 +150,8 @@ li {
 
 /* Instruction container */
 .instruction-button-open {
-  position: fixed;
-  right: 10px;
-  bottom: 10px;
-  width: 100px;
-  height: 50px;
 }
+
 .instruction-container {
   position: fixed;
   width: 80%;
@@ -173,9 +173,30 @@ li {
   width: 38px;
   height: 38px;
 }
+
+.footer-btn-right {
+  margin-right: 50px;
+}
+
+.footer-btn-left {
+  margin-left: 50px;
+}
+
 .instruction-container .instructions {
   width: 100%;
   height: 100%;
   background-color: transparent;
   overflow: scroll;
+}
+
+/* textarena */
+textarea.readonly {
+  background-color: rgb(235, 235, 235);
+}
+
+
+/* Sentence label in entailment text */
+.sentence-label h5 {
+  text-align: right;
+  width: 130px;
 }

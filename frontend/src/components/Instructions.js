@@ -18,10 +18,10 @@ export default function Instructions(props) {
     if (enableInstructions) {
         return (
             <div>
-                <button className={showInstructions ? "btn instruction-button-open btn-outline-primary" : "btn instruction-button-open btn-primary"} onClick={() => { setShowInstructions(!showInstructions); }}> Help </button>
+                <button className={showInstructions ? "btn instruction-button-open btn-outline-primary footer-btn-right" : "btn instruction-button-open btn-primary footer-btn-right"} onClick={() => { setShowInstructions(!showInstructions); }}> Help </button>
                 { showInstructions ? (
                     <div class="instruction-container"> 
-                        <button class="btn btn-danger exit" onClick={() => { setShowInstructions(false); }}> X </button>
+                        <button class="btn btn-danger exit footer-btn-right" onClick={() => { setShowInstructions(false); }}> X </button>
                         { getInstructions(props.instruction) }
                     </div>
                 ) : null }
