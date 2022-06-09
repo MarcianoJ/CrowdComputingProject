@@ -43,7 +43,7 @@ class User < ApplicationRecord
     attributes.with_indifferent_access
         .except('encrypted_password', 'token')
         .merge({
-          unfinished_task_set_count: task_sets.unfinished_for_user(self).distinct.count
+          unfinished_task_set_count: task_sets.unfinished_for_user(self).distinct.length
         })
   end
 
