@@ -14,7 +14,7 @@ export default function GameNav(props) {
             <div className='other-btn'>
 
 
-            {   userContext.user != null ? 
+            {   (userContext.user != null && !cookies.anonymous) ? 
                 ( 
                <button className="btn btn-primary" onClick={()=>{removeCookie("token"); userContext.setUser(null)}}>Log out</button> ) 
                : 

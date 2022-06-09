@@ -5,8 +5,6 @@ import UI from './UI';
 import Instructions, {instruction_sentiment_analysis} from "./Instructions";
 import TaskTitle, { sentiment_classify, sentiment_classify_instruction } from "./TaskTitle";
 
-const axios = require('axios').default;
-
 export var sentiment_label_negative = 0
 export var sentiment_label_neutral = 1
 export var sentiment_label_positive = 2
@@ -26,6 +24,8 @@ const SentimentLabelTask = (props) => {
         props.setData(data)
         props.navigate(`sentiment/rational/${gameid}`, {state:{
             sentences:sentences,
+            ids:location.state.ids,
+            task_id: location.state.task_id,
             sentenceIndex:sentenceIndex
         }
         })
