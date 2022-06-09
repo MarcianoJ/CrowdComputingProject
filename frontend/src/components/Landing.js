@@ -27,7 +27,7 @@ const Landing = (props) => {
         props.navigate('/signup')
     }
     return(
-        <div className="container distance">
+        <div className="container mt-2 mb-5">
             <div class="container">
                 <div class="row">
                     <h1>Bob: The Alien Translator Robot</h1>
