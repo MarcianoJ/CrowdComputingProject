@@ -16,6 +16,7 @@
 #  free_text_explanation :string
 #
 class DataPoint < ApplicationRecord
+  self.implicit_order_column = "input"
   belongs_to :dataset
 
   has_many :data_points_task_sets, dependent: :destroy
@@ -27,13 +28,20 @@ class DataPoint < ApplicationRecord
     joins(:task_sets).left_outer_joins(:task_results)
         .where(task_sets: { id: task_set.id })
         .where(task_results: { id: nil })
-        .distinct
+        .group('data_points.id')
+        .select('data_points.*')
   }
 
   scope :finished_for_user, ->(user, task_set){
     joins(:task_sets).joins(:task_results)
         .where(task_sets: { id: task_set.id })
-        .distinct
+        .group('data_points.id')
+        .select('data_points.*')
+  }
+
+  scope :by_task_set_order, ->{
+    includes(:data_points_task_sets)
+        .order('data_points_task_sets.id')
   }
 
   scope :by_usage, ->{
@@ -41,8 +49,15 @@ class DataPoint < ApplicationRecord
         .left_outer_joins(:task_sets)
         .group('data_points.id')
         .order('COUNT(task_sets.id)')
-        .order('RANDOM()')
+        .random
         .select('data_points.*')
+  }
+
+  scope :random, ->(seed = rand(0.0..10.0)){
+    pg_seed = seed.to_f / (seed.abs + 1)
+    DataPoint.connection.execute("select setseed(#{pg_seed})")
+
+    order('RANDOM()')
   }
 
   scope :with_classification, ->{

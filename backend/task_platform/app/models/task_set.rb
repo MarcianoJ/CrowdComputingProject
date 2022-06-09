@@ -31,8 +31,8 @@ class TaskSet < ApplicationRecord
     includes(:task_sets_users)
         .left_outer_joins(:task_sets_users)
         .group(Arel.sql('task_sets.id'))
-        .having(Arel.sql("COUNT(task_sets_users.finished = true) < #{max_finished}"))
-        .order(Arel.sql('COUNT(task_sets_users.finished = true) DESC'))
+        .having(Arel.sql("COUNT((CASE WHEN task_sets_users.finished = true THEN 1 END)) < #{max_finished}"))
+        .order(Arel.sql('COUNT((CASE WHEN task_sets_users.finished = true THEN 1 END)) DESC'))
         .order(Arel.sql('COUNT(task_sets_users.id)'))
         .order(Arel.sql('RANDOM()'))
         .select(Arel.sql('task_sets.*'))
@@ -44,8 +44,8 @@ class TaskSet < ApplicationRecord
     includes(:task_sets_users)
         .left_outer_joins(:task_sets_users)
         .group(Arel.sql('task_sets.id'))
-        .having(Arel.sql("COUNT(task_sets_users.finished = true) >= #{max_finished}"))
-        .order(Arel.sql('COUNT(task_sets_users.finished = true) ASC'))
+        .having(Arel.sql("COUNT((CASE WHEN task_sets_users.finished = true THEN 1 END)) >= #{max_finished}"))
+        .order(Arel.sql('COUNT((CASE WHEN task_sets_users.finished = true THEN 1 END)) ASC'))
         .order(Arel.sql('COUNT(task_sets_users.id)'))
         .order(Arel.sql('RANDOM()'))
         .select(Arel.sql('task_sets.*'))
@@ -55,7 +55,7 @@ class TaskSet < ApplicationRecord
     includes(:task_sets_users)
         .left_outer_joins(:task_sets_users)
         .group('task_sets.id')
-        .having(Arel.sql("COUNT(task_sets_users.finished = true) >= #{max_finished}"))
+        .having(Arel.sql("COUNT((CASE WHEN task_sets_users.finished = true THEN 1 END)) >= #{max_finished}"))
         .select('task_sets.*')
   }
 
@@ -63,15 +63,16 @@ class TaskSet < ApplicationRecord
     includes(:task_sets_users)
         .left_outer_joins(:task_sets_users)
         .group('task_sets.id')
-        .having(Arel.sql("COUNT(task_sets_users.finished = true) < #{max_finished}"))
+        .having(Arel.sql("COUNT((CASE WHEN task_sets_users.finished = true THEN 1 END)) < #{max_finished}"))
         .select('task_sets.*')
   }
 
   scope :finished, ->{
     includes(:task_sets_users)
         .left_outer_joins(:task_sets_users)
+        .where.not(task_sets_users: { id: nil })
         .group('task_sets.id')
-        .having(Arel.sql("COUNT(task_sets_users.finished = false) = 0"))
+        .having(Arel.sql("COUNT((CASE WHEN task_sets_users.finished = false THEN 1 END)) = 0"))
         .select('task_sets.*')
   }
 
@@ -79,7 +80,7 @@ class TaskSet < ApplicationRecord
     includes(:task_sets_users)
         .left_outer_joins(:task_sets_users)
         .group('task_sets.id')
-        .having(Arel.sql("COUNT(task_sets_users.finished = false) > 0"))
+        .having(Arel.sql("COUNT((CASE WHEN task_sets_users.finished = false THEN 1 END)) > 0"))
         .select('task_sets.*')
   }
 
@@ -87,37 +88,40 @@ class TaskSet < ApplicationRecord
     includes(:task_sets_users)
         .left_outer_joins(:task_sets_users)
         .where(task_sets_users: { id: nil })
+        .group('task_sets.id')
+        .select('task_sets.*')
   }
 
   scope :assigned, ->{
     includes(:task_sets_users)
         .left_outer_joins(:task_sets_users)
         .where.not(task_sets_users: { id: nil })
+        .group('task_sets.id')
+        .select('task_sets.*')
   }
 
   scope :finished_for_user, ->(user){
     includes(:task_sets_users)
         .left_outer_joins(:task_sets_users)
-        .where(task_sets_users: { user_id: user.id })
         .group('task_sets.id')
-        .having(Arel.sql("COUNT(task_sets_users.finished = false) = 0"))
+        .having(Arel.sql("COUNT((CASE WHEN task_sets_users.finished = true THEN 1 END) * (CASE WHEN task_sets_users.user_id = #{user.id} THEN 1 END)) > 0"))
         .select('task_sets.*')
   }
 
   scope :unfinished_for_user, ->(user){
     includes(:task_sets_users)
         .left_outer_joins(:task_sets_users)
-        .where(task_sets_users: { user_id: user.id })
         .group('task_sets.id')
-        .having(Arel.sql("COUNT(task_sets_users.finished = false) > 0"))
+        .having(Arel.sql("COUNT((CASE WHEN task_sets_users.finished = false THEN 1 END) * (CASE WHEN task_sets_users.user_id = #{user.id} THEN 1 END)) > 0"))
         .select('task_sets.*')
   }
 
   scope :unassigned_for_user, ->(user){
     includes(:task_sets_users)
         .left_outer_joins(:task_sets_users)
-        .where(task_sets_users: { user_id: user.id })
-        .where(task_sets_users: { id: nil })
+        .group('task_sets.id')
+        .having(Arel.sql("COUNT((CASE WHEN task_sets_users.user_id = #{user.id} THEN 1 END)) = 0"))
+        .select('task_sets.*')
   }
 
   scope :assigned_for_user, ->(user){
@@ -125,6 +129,8 @@ class TaskSet < ApplicationRecord
         .left_outer_joins(:task_sets_users)
         .where(task_sets_users: { user_id: user.id })
         .where.not(task_sets_users: { id: nil })
+        .group('task_sets.id')
+        .select('task_sets.*')
   }
 
   def self.create_from_data_points(task, total_amount: 20, gold_standard_amount: 7, dataset: nil, name: nil, tutorial: false)
@@ -155,8 +161,6 @@ class TaskSet < ApplicationRecord
         name_number += 1
         generated_name = "#{task.nlp_kind&.to_s || 'task_set'}_#{name_number.to_s.rjust(4, '0')}"
       end
-
-      # generated_name = "#{task.nlp_kind&.to_s || 'task_set'}_#{rand(0...10_000).to_s.rjust(4, '0')}"
 
       return if gold_standard_data_points.length < gold_standard_amount
 

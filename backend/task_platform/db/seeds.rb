@@ -82,16 +82,18 @@ data.each do |review|
   unlabeled_dataset.data_points.create!(input: review['reviewText'])
 end
 
-# Taskset creation
-def create_taskset(name, task, dataset, n_data_points)
-  taskset = TaskSet.create!(name: name, task: task)
-  taskset.data_points = dataset.data_points.sample n_data_points
-  return taskset
-end
+# Commented out because creating/assigning task_sets is automated now (with after_save callback in user model)
 
-taskset1 = create_taskset("Sentiment analysis 001", task_sentiment, unlabeled_dataset, 10)
-taskset2 = create_taskset("Sentiment analysis 002", task_sentiment, unlabeled_dataset, 10)
-taskset3 = create_taskset("Sentiment analysis 003", task_sentiment, unlabeled_dataset, 10)
+# Taskset creation
+# def create_taskset(name, task, dataset, n_data_points)
+#   taskset = TaskSet.create!(name: name, task: task)
+#   taskset.data_points = dataset.data_points.sample n_data_points
+#   return taskset
+# end
+
+# taskset1 = create_taskset("sentiment_analysis_0001", task_sentiment, unlabeled_dataset, 10)
+# taskset2 = create_taskset("sentiment_analysis_0002", task_sentiment, unlabeled_dataset, 10)
+# taskset3 = create_taskset("sentiment_analysis_0003", task_sentiment, unlabeled_dataset, 10)
 
 # # Assign workers to taskset
 # taskset1.users = workers.select{ rand > 0.5 }

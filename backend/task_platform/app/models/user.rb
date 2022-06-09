@@ -21,6 +21,8 @@
 #  anonymous              :boolean          default(FALSE), not null
 #
 class User < ApplicationRecord
+  UNFINISHED_TASK_SET_AMOUNT = 3.freeze
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -45,7 +47,7 @@ class User < ApplicationRecord
         })
   end
 
-  def set_task_set_users_finished
+  def set_task_sets_users_finished
     return unless user?
 
     unfinished_task_sets_users = task_sets_users
@@ -67,8 +69,8 @@ class User < ApplicationRecord
 
     pending_task_sets = task_sets.assigned_for_user(self).unfinished_for_user(self).distinct
 
-    if pending_task_sets.length < 3
-      needed_task_set_amount = TaskSet::MIN_REQUIRED_ASSIGNS_FOR_LABEL - pending_task_sets.length
+    if pending_task_sets.length < UNFINISHED_TASK_SET_AMOUNT
+      needed_task_set_amount = UNFINISHED_TASK_SET_AMOUNT - pending_task_sets.length
 
       assignable_task_sets = TaskSet
           .unassigned_for_user(self)
@@ -92,7 +94,7 @@ class User < ApplicationRecord
           .by_usage
       end
 
-      self.task_sets << assignable_task_sets.first(needed_task_set_amount)
+      self.task_sets = (task_sets + assignable_task_sets.first(needed_task_set_amount)).compact.uniq
     end
   end
 
