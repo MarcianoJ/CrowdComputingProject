@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_06_08_095413) do
+ActiveRecord::Schema.define(version: 2022_06_08_105354) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -49,6 +49,8 @@ ActiveRecord::Schema.define(version: 2022_06_08_095413) do
     t.string "rationale_words", array: true
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "rationale_words2", array: true
+    t.string "free_text_explanation"
     t.index ["dataset_id"], name: "index_data_points_on_dataset_id"
   end
 

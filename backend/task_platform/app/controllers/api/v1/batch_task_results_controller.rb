@@ -26,12 +26,15 @@ class Api::V1::BatchTaskResultsController < Api::V1::ApplicationController
     end
 
     if errors.empty?
-      task_set = TaskSet.find_by(id: params.dig(:task_results, 0, :task_set_id))
+      # task_set = TaskSet.find_by(id: params.dig(:task_results, 0, :task_set_id))
       
-      if task_set.present? && task_set.data_points.unfinished_for_user(current_user, task_set).blank?
-        task_sets_user = task_set.task_sets_users.find_by(user: current_user)
-        task_sets_user&.update!(finished: true)
-      end
+      # if task_set.present? && task_set.data_points.unfinished_for_user(current_user, task_set).blank?
+      #   task_sets_user = task_set.task_sets_users.find_by(user: current_user)
+      #   task_sets_user&.update!(finished: true)
+      # end
+
+      current_user.assign_to_task_sets
+      current_user.set_task_sets_users_finished
 
       render json: { message: 'Success' }, status: :ok
     else
