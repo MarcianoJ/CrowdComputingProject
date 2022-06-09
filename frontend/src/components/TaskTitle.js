@@ -75,7 +75,7 @@ export default function TaskTitle(props) {
                 } else if (label == "contradicts") {
                     description =  "Highlight which part of the context contradicts the statement, followed by the part of the statement that it contradicts."
                 } else if (label == "entails") {
-                    description =  "Highlight which part of the context the statement entails from, followed by the part of the statement that it entails."
+                    description =  "Highlight which part of the context the statement entails from (follows from), followed by the part of the statement that it entails."
                 }
                 return createTitle(
                     "Entailment Challenge",
