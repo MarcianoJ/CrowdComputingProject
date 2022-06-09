@@ -200,3 +200,8 @@ textarea.readonly {
   text-align: right;
   width: 130px;
 }
+
+.main-button{
+  width:15%;
+  height:45px;
+}
