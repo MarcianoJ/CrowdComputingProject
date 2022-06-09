@@ -74,13 +74,15 @@ gold_standard_dataset.data_points.create!(input: 'Shut up and take my money!!!',
 
 
 # Unlabeled dataset creation
-unlabeled_dataset = Dataset.create!(name: 'Unlabeled dataset', gold_standard: false, task: task_sentiment)
-file = File.open Rails.root + "app/assets/datasets/amazon-automotive-reviews/automotive_processed_min.json"
+unlabeled_dataset_1 = Dataset.create!(name: 'Unlabeled dataset', gold_standard: false, task: task_sentiment)
+file = File.open Rails.root + "app/assets/datasets/amazon-automotive-reviews/automotive_processed.json"
 data = JSON.load file
 file.close
 data.each do |review|
-  unlabeled_dataset.data_points.create!(input: review['reviewText'])
+  unlabeled_dataset_1.data_points.create!(input: review['reviewText'])
 end
+
+
 
 # Commented out because creating/assigning task_sets is automated now (with after_save callback in user model)
 
