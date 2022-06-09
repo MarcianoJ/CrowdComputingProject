@@ -16,11 +16,12 @@ const Login = (props) => {
 
             <div className="container">
                 <div className="form">
-                    <h3 className='mb-5'>Login</h3>
-                    <label>username</label>
+                    <h3 className='mt-2 mb-2'>Login</h3>
+                    <p>Login to your account.</p>
+                    <label>Email</label>
                     <input type="text" name="username" id="username" required/>
 
-                    <label>password</label>
+                    <label>Password</label>
                     <input type="password" name="password" id="password" required/>
 
 

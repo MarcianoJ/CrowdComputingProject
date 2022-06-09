@@ -17,22 +17,25 @@ const Signup = (props) => {
 
             <div className="container">
                 <div className="form">
-                    <h3 className='mb-5'>create new account</h3>
-
-                    <label>username</label>
+                    <h3 className='mb-2 mt-2'>Create new account</h3>
+                    <p>
+                        By creating an account, your current progress can be saved. <br/>
+                        Please provide the following information.
+                    </p>
+                    <label>Email</label>
                     <input type="text" name="username" id="username" required/>
                     <div className='error'>
                         <p id="email_error"></p>
                     </div>
 
-                    <label>password</label>
+                    <label>Password</label>
                     <input type="password" name="password" id="password" required/>
                     <div className='error'>
                         <p id="password_error"></p>
                     </div>
 
                     <label/>
-                    <button className="btn btn-success" onClick={handleSubmit} > signup</button>
+                    <button className="btn btn-success" onClick={handleSubmit} >Sign Up</button>
 
                     <div className='error'>
                         <p id="user_error"></p>

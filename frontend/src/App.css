@@ -167,7 +167,7 @@ li {
 .instruction-container button.exit {
   text-align: center;
   position: absolute;
-  right: -12px;
+  right: -65px;
   top: -12px;
   border-radius: 25px;
   width: 38px;
@@ -199,6 +199,18 @@ textarea.readonly {
 .sentence-label h5 {
   text-align: right;
   width: 130px;
+}
+
+.yellow {
+  background-color: #e4c41f;
+
+}
+mark.red {
+  background-color: rgb(229, 103, 101);
+}
+
+.text-justify {
+  text-align: justify;
 }
 
 .main-button{

@@ -17,19 +17,19 @@ const Finished = (props) => {
 
     return(
         <div>
-
             <div className="container distance">
-                <h3>Congratulations!</h3>
-                <p>you have completed the game!</p>
-                <button className="mt-5 btn btn-primary main-button" onClick={handlePlayagain}>
+                <h1>Congratulations!</h1>
+                <h4>You have completed the game!</h4>
+                <h5>By helping us gather information about task explanations, you brought us one step closer to better explainable AI.</h5>
+                <h5>Thank you very much!</h5>
+                <button className="mt-3 btn btn-primary main-button" onClick={handlePlayagain}>
                 {!isLoading ? 
-                    (<span>play again</span>)
+                    (<span>Play again</span>)
                     :
                     (<div class="spinner-border text-light" role="status"><span class="sr-only"></span></div>)
                 }
                 </button>
             </div>
-
         </div>
     )
 }

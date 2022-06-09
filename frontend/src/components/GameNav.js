@@ -8,7 +8,7 @@ export default function GameNav(props) {
     return(
         <nav className="navbar bg-light">
             <div className='home-btn'>
-                <button  className="btn btn-primary" onClick={()=>{props.navigate("/")}}>home</button>
+                <button  className="btn btn-primary" onClick={()=>{props.navigate("/")}}>Home</button>
             </div>
 
             <div className='other-btn'>
