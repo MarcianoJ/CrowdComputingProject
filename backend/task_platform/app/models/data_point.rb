@@ -41,6 +41,7 @@ class DataPoint < ApplicationRecord
 
   scope :by_task_set_order, ->{
     includes(:data_points_task_sets)
+        .joins(:data_points_task_sets)
         .order('data_points_task_sets.id')
   }
 
