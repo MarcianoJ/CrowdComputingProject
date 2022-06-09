@@ -11,7 +11,7 @@ class Api::V1::NextDataPointsController < Api::V1::ApplicationController
     task_set = TaskSet.find(params[:task_set_id])
     previous_data_points_task_set = task_set.data_points_task_sets.order(:id).find_by(data_point_id: data_point_id.to_i)
 
-    data_points_task_set = task_set.data_points_task_sets.find_by(data_point_id: (data_point_id.to_i + 1)..)
+    data_points_task_set = task_set.data_points_task_sets.order(:id).find_by(id: (previous_data_points_task_set&.id.to_i + 1)..)
     data_point = data_points_task_set&.data_point
 
     previous_data_points_task_sets = task_set.data_points_task_sets.where(id: ..(data_points_task_set&.id.to_i - 1)).order(:id)
