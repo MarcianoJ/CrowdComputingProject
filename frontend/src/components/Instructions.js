@@ -21,8 +21,8 @@ export default function Instructions(props) {
                 <button className={showInstructions ? "btn instruction-button-open btn-outline-primary footer-btn-right" : "btn instruction-button-open btn-primary footer-btn-right"} onClick={() => { setShowInstructions(!showInstructions); }}> Help </button>
                 { showInstructions ? (
                     <div class="instruction-container"> 
-                        <button class="btn btn-danger exit footer-btn-right" onClick={() => { setShowInstructions(false); }}> X </button>
                         { getInstructions(props.instruction) }
+                        <button class="btn btn-danger exit footer-btn-right" onClick={() => { setShowInstructions(false); }}> X </button>
                     </div>
                 ) : null }
             </div>
@@ -180,11 +180,10 @@ export default function Instructions(props) {
                 </p>
                 <p>
                     <b>Example 1 - entails</b> <br/>
-                    Context: <i>My bicycle  <mark class="yellow">was stolen</mark> today</i> <br/>
-                    Statement: <i>I  <mark class="yellow">cannot cycle</mark> to work</i><br/>
-                    Search for parts of the context and the statement that entail from each other. In this example this is "was stolen" and "cannot cycle". 
-                    To select these parts, first highlight "was stolen" in the context and then highlight "cannot cycle" in the statement.
-                    Try to select all the parts that are important for explaining the entailment.
+                    Context: <i>My <mark class="yellow">bicycle</mark>  <mark class="red">was stolen</mark> today</i> <br/>
+                    Statement: <i>I  <mark class="red">cannot <mark class="yellow">cycle</mark></mark> to work</i><br/>
+                    Search for parts of the context and the statement that entail from each other. In this example this is "bicycle" and "cycle", and "was stolen" and "cannot cycle". 
+                    To select these parts, first highlight "bicycle" in the context, and then highlight "cycle". Then repeat this for "was stolen" and "cannot cycle"
                 </p>
                 <p>
                     <b>Example 2 - contradiction</b> <br/>

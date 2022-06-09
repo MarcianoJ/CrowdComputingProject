@@ -208,3 +208,7 @@ textarea.readonly {
 mark.red {
   background-color: rgb(229, 103, 101);
 }
+
+.text-justify {
+  text-align: justify;
+}
