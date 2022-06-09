@@ -24,7 +24,7 @@ export default function TaskTitle(props) {
     console.log(label)
     return (
         showTitle ? 
-            <div class="container justify-content-center">
+            <div className="container justify-content-center">
                 { getTitle(task, label) }
             </div>
             : null
@@ -41,13 +41,13 @@ export default function TaskTitle(props) {
     }
 
     function createTitle(title, subtitle) {
-        return <div class="mb-3">
+        return <div className="mb-3">
         <h1>{title}</h1>
         <h4>{subtitle}</h4>
     </div>
     }
     function createExplanation(explanation) {
-        return <h5 class="mt-2 mb-2">
+        return <h5 className="mt-2 mb-2">
             {explanation}
         </h5>
     }

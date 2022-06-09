@@ -4,7 +4,6 @@ export function highlight(e,props,sentences) {
     var selStart = e.target.selectionStart
     var selEnd = e.target.selectionEnd
     var data = props.data 
-
     var sentence = sentences[e.target.id]
     var first_sentence = sentences[0]
     

@@ -6,9 +6,14 @@ import {resetHighlight, removeHighlight, highlight} from '../utils/sentmentHighl
 import Instructions, {instruction_sentiment_analysis} from "./Instructions";
 import TaskTitle, { sentiment_highlight, sentiment_highlight_instruction } from './TaskTitle';
 import {sentiment_label_negative, sentiment_label_neutral, sentiment_label_positive} from './SentimentLabelTask'
+import { publishBatchResults } from '../utils/utils'
+import { useCookies } from 'react-cookie';
+
 const SentimentHighlightTask = (props) => {
     const location = useLocation()
     const { gameid } = useParams()
+    const [cookies, setCookie, removeCookie] = useCookies();
+
     var sentences = location.state.sentences
     var sentenceIndex = location.state.sentenceIndex
     var sentence = sentences[sentenceIndex]
@@ -43,14 +48,27 @@ const SentimentHighlightTask = (props) => {
 
     //SUBMIT
     function submit(e){
-
         if(sentenceIndex >= sentences.length-1){
             //TODO: push results to database
+            let final_results = {}
+            let counter = 0
+            for(let key in props.data){
+                var result = props.data[key]
+                final_results[counter] = {
+                    "classification":result.label,
+                    "rationale_words":result.rational,
+                    "data_point_id":location.state.ids[counter],
+                    "task_set_id":location.state.task_id
+                }
+            }
+            publishBatchResults(cookies.token,final_results)
             props.navigate("/finished")
         }
         else{
             props.navigate(`/sentiment/label/${gameid}`, {state:{
                 sentences: sentences,
+                ids: location.state.ids,
+                task_id: location.state.task_id,
                 sentenceIndex: sentenceIndex+1
             }
             })
@@ -60,6 +78,7 @@ const SentimentHighlightTask = (props) => {
     function goBackHandler(e) {
         props.navigate(`/sentiment/label/${gameid}`, {state:{
             sentences:sentences,
+            ids:location.satete.ids,
             sentenceIndex:sentenceIndex
         }
         })

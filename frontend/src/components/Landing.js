@@ -1,7 +1,8 @@
-import React, {useContext} from 'react'
+import React, {useContext, useState} from 'react'
 import {startNewGame} from "../utils/utils.js"
 import UserContext from '../components/User';
 import {useLocation} from 'react-router-dom';
+import { useCookies } from 'react-cookie';
 
 import alien from '../images/alien.jpeg'
 import bob from '../images/Bob with nametag.jpg'
@@ -12,7 +13,10 @@ require('dotenv').config()
 const Landing = (props) => {
     const userContext = useContext(UserContext);
     const location = useLocation();
-    
+    const [cookies, setCookie, removeCookie] = useCookies();
+    const [isLoading, setIsLoading] = useState(false)
+
+    //reload once if required
     if(location.state != null && location.state.refresh){
         window.location.reload(true);
         props.navigate("/")
@@ -20,18 +24,19 @@ const Landing = (props) => {
 
 
     function handleNewGame() {
-        startNewGame(props)
+        if(!isLoading){
+            setIsLoading(true)
+            startNewGame(props, userContext, cookies, setCookie)
+        }
     }
 
-    function handleNavigateSignup() {
-        props.navigate('/signup')
-    }
     return(
         <div className="container mt-2 mb-5">
             <div class="container">
                 <div class="row">
                     <h1>Bob: The Alien Translator Robot</h1>
                     <h3>Team up with Bob and save the earth!</h3>
+
                 </div>
                 <br/>
                 <br/>
@@ -70,19 +75,25 @@ const Landing = (props) => {
                 </div>
                 <div class="row">
                     <div class="col-12">
-                        <h4>Press the button to start the game.</h4>
+                        <h4>Press the button to start the game</h4>
                         <p>
                             Read the instructions carefully and help Bob translate the alien language. <br/>
                             Press the help for more information when anything is unclear. <br/>
                             Good luck!
                         </p>
-                        <button className="btn btn-primary" onClick={handleNewGame}>Start game</button>
+                        <div className="landingButtons">
+                        <button className="btn btn-primary main-button" onClick={handleNewGame}>
+                        {!isLoading ? 
+                            (<span>Start Game</span>)
+                            :
+                            (<div className="spinner-border text-light" role="status"><span className="sr-only"></span></div>)
+                        }
+                        </button>                    
                     </div>
                 </div>
-                
             </div>
         </div>
-    )
+    </div>)
 }
 
 export default Landing

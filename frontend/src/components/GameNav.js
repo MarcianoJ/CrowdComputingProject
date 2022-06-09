@@ -8,13 +8,13 @@ export default function GameNav(props) {
     return(
         <nav className="navbar bg-light">
             <div className='home-btn'>
-                <button  className="btn btn-primary" onClick={()=>{props.navigate("/")}}>home</button>
+                <button  className="btn btn-primary" onClick={()=>{props.navigate("/")}}>Home</button>
             </div>
 
             <div className='other-btn'>
 
 
-            {   userContext.user != null ? 
+            {   (userContext.user != null && !cookies.anonymous) ? 
                 ( 
                <button className="btn btn-primary" onClick={()=>{removeCookie("token"); userContext.setUser(null)}}>Log out</button> ) 
                : 
