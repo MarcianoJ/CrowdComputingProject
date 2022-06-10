@@ -28,8 +28,8 @@ class TaskSet < ApplicationRecord
 
   # filter for less than max_finished times finished and order by highest amount of finishes
   scope :by_usage_under_limit, ->(max_finished = MIN_REQUIRED_ASSIGNS_FOR_LABEL){
-    includes(:task_sets_users)
-        .left_outer_joins(:task_sets_users)
+    left_outer_joins(:task_sets_users)
+        .preload(:task_sets_users)
         .group(Arel.sql('task_sets.id'))
         .having(Arel.sql("COUNT((CASE WHEN task_sets_users.finished = true THEN 1 END)) < #{max_finished}"))
         .order(Arel.sql('COUNT((CASE WHEN task_sets_users.finished = true THEN 1 END)) DESC'))
@@ -41,8 +41,8 @@ class TaskSet < ApplicationRecord
 
   # filter for more than max_finished times finished and order by lowest amount of finishes
   scope :by_usage_above_limit, ->(max_finished = MIN_REQUIRED_ASSIGNS_FOR_LABEL){
-    includes(:task_sets_users)
-        .left_outer_joins(:task_sets_users)
+    left_outer_joins(:task_sets_users)
+        .preload(:task_sets_users)
         .group(Arel.sql('task_sets.id'))
         .having(Arel.sql("COUNT((CASE WHEN task_sets_users.finished = true THEN 1 END)) >= #{max_finished}"))
         .order(Arel.sql('COUNT((CASE WHEN task_sets_users.finished = true THEN 1 END)) ASC'))
@@ -52,24 +52,24 @@ class TaskSet < ApplicationRecord
   }
 
   scope :completed, ->(max_finished = MIN_REQUIRED_ASSIGNS_FOR_LABEL){
-    includes(:task_sets_users)
-        .left_outer_joins(:task_sets_users)
+    left_outer_joins(:task_sets_users)
+        .preload(:task_sets_users)
         .group('task_sets.id')
         .having(Arel.sql("COUNT((CASE WHEN task_sets_users.finished = true THEN 1 END)) >= #{max_finished}"))
         .select('task_sets.*')
   }
 
   scope :not_completed, ->(max_finished = MIN_REQUIRED_ASSIGNS_FOR_LABEL){
-    includes(:task_sets_users)
-        .left_outer_joins(:task_sets_users)
+    left_outer_joins(:task_sets_users)
+        .preload(:task_sets_users)
         .group('task_sets.id')
         .having(Arel.sql("COUNT((CASE WHEN task_sets_users.finished = true THEN 1 END)) < #{max_finished}"))
         .select('task_sets.*')
   }
 
   scope :finished, ->{
-    includes(:task_sets_users)
-        .left_outer_joins(:task_sets_users)
+    left_outer_joins(:task_sets_users)
+        .preload(:task_sets_users)
         .where.not(task_sets_users: { id: nil })
         .group('task_sets.id')
         .having(Arel.sql("COUNT((CASE WHEN task_sets_users.finished = false THEN 1 END)) = 0"))
@@ -77,56 +77,56 @@ class TaskSet < ApplicationRecord
   }
 
   scope :unfinished, ->{
-    includes(:task_sets_users)
-        .left_outer_joins(:task_sets_users)
+    left_outer_joins(:task_sets_users)
+        .preload(:task_sets_users)
         .group('task_sets.id')
         .having(Arel.sql("COUNT((CASE WHEN task_sets_users.finished = false THEN 1 END)) > 0"))
         .select('task_sets.*')
   }
 
   scope :unassigned, ->{
-    includes(:task_sets_users)
-        .left_outer_joins(:task_sets_users)
+    left_outer_joins(:task_sets_users)
+        .preload(:task_sets_users)
         .where(task_sets_users: { id: nil })
         .group('task_sets.id')
         .select('task_sets.*')
   }
 
   scope :assigned, ->{
-    includes(:task_sets_users)
-        .left_outer_joins(:task_sets_users)
+    left_outer_joins(:task_sets_users)
+        .preload(:task_sets_users)
         .where.not(task_sets_users: { id: nil })
         .group('task_sets.id')
         .select('task_sets.*')
   }
 
   scope :finished_for_user, ->(user){
-    includes(:task_sets_users)
-        .left_outer_joins(:task_sets_users)
+    left_outer_joins(:task_sets_users)
+        .preload(:task_sets_users)
         .group('task_sets.id')
         .having(Arel.sql("COUNT((CASE WHEN task_sets_users.finished = true THEN 1 END) * (CASE WHEN task_sets_users.user_id = #{user.id} THEN 1 END)) > 0"))
         .select('task_sets.*')
   }
 
   scope :unfinished_for_user, ->(user){
-    includes(:task_sets_users)
-        .left_outer_joins(:task_sets_users)
+    left_outer_joins(:task_sets_users)
+        .preload(:task_sets_users)
         .group('task_sets.id')
         .having(Arel.sql("COUNT((CASE WHEN task_sets_users.finished = false THEN 1 END) * (CASE WHEN task_sets_users.user_id = #{user.id} THEN 1 END)) > 0"))
         .select('task_sets.*')
   }
 
   scope :unassigned_for_user, ->(user){
-    includes(:task_sets_users)
-        .left_outer_joins(:task_sets_users)
+    left_outer_joins(:task_sets_users)
+        .preload(:task_sets_users)
         .group('task_sets.id')
         .having(Arel.sql("COUNT((CASE WHEN task_sets_users.user_id = #{user.id} THEN 1 END)) = 0"))
         .select('task_sets.*')
   }
 
   scope :assigned_for_user, ->(user){
-    includes(:task_sets_users)
-        .left_outer_joins(:task_sets_users)
+    left_outer_joins(:task_sets_users)
+        .preload(:task_sets_users)
         .where(task_sets_users: { user_id: user.id })
         .where.not(task_sets_users: { id: nil })
         .group('task_sets.id')

@@ -26,6 +26,7 @@ class DataPoint < ApplicationRecord
 
   scope :unfinished_for_user, ->(user, task_set){
     joins(:task_sets).left_outer_joins(:task_results)
+        .preload(:task_sets, :task_results)
         .where(task_sets: { id: task_set.id })
         .where(task_results: { id: nil })
         .group('data_points.id')
@@ -34,20 +35,21 @@ class DataPoint < ApplicationRecord
 
   scope :finished_for_user, ->(user, task_set){
     joins(:task_sets).joins(:task_results)
+        .preload(:task_sets, :task_results)
         .where(task_sets: { id: task_set.id })
         .group('data_points.id')
         .select('data_points.*')
   }
 
   scope :by_task_set_order, ->{
-    includes(:data_points_task_sets)
-        .joins(:data_points_task_sets)
+    left_outer_joins(:data_points_task_sets)
+        .preload(:data_points_task_sets)
         .order('data_points_task_sets.id')
   }
 
   scope :by_usage, ->{
-    includes(:task_sets)
-        .left_outer_joins(:task_sets)
+    left_outer_joins(:task_sets)
+        .preload(:task_sets)
         .group('data_points.id')
         .order('COUNT(task_sets.id)')
         .random

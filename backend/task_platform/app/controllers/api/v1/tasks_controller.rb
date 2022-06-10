@@ -1,11 +1,14 @@
 class Api::V1::TasksController < Api::V1::ApplicationController
   # Input:
-  # - (none)
+  # - nlp_kind (optional, one of ['sentiment_analysis', 'textual_entailment'])
   #
   # Output:
   # - List of tasks
   def index
-    output = Task.all.map do |task|
+    tasks = Task.all
+    tasks = tasks.where(nlp_kind: params[:nlp_kind]) if params[:nlp_kind].present?
+
+    output = tasks.map do |task|
       task.attributes.merge({
         classification_options: task.classification_options.map(&:attributes),
         task_set_count: task.task_sets.count
