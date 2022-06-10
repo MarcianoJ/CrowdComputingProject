@@ -32,21 +32,21 @@ const Landing = (props) => {
 
     return(
         <div className="container mt-2 mb-5">
-            <div class="container">
-                <div class="row">
+            <div className="container">
+                <div className="row">
                     <h1>Bob: The Alien Translator Robot</h1>
                     <h3>Team up with Bob and save the earth!</h3>
 
                 </div>
                 <br/>
                 <br/>
-                <div class="row">
+                <div className="row">
                     <h4>The story of Bob</h4>
-                    <div class="col-2">
-                        <img class="w-100" src={bob} alt="Bob"/>
+                    <div className="col-2">
+                        <img className="w-100" src={bob} alt="Bob"/>
                     </div>
                     
-                    <div class="col-10 text-justify ">
+                    <div className="col-10 text-justify ">
                         <p>
                             Bob is just a regular robot like you and me: he likes the beach, he likes coffee in the morning and, most of all, enjoys his free paycheck from the government for being their official 'Alien Translator Robot'. 
                             Because aliens do not exit right? <br/>
@@ -57,10 +57,10 @@ const Landing = (props) => {
                     </div>
                 </div>
                 <br/>
-                <div class="row">
-                    <div class="col-10">
+                <div className="row">
+                    <div className="col-10">
                         <h4>Our Mission</h4>
-                        <p class="text-justify">
+                        <p className="text-justify">
                             With the rise of artificial intelligence systems, many real-life decisions are being made by machine learning algorithms.
                             Examples are self-driving cars, the youtube recommendation system, and, just like Bob, automatic translation systems.
                             The weird thing is that these algorithms are very complicated and we often have no idea how these machines come to their decisions. <br/>
@@ -69,12 +69,12 @@ const Landing = (props) => {
                             So by helping Bob, you are helping us in our quest towards better explainable AI. So thank you!
                         </p>
                     </div>
-                    <div class="col-2">
-                        <img class="w-100" src={alien} alt="Alien"/>
+                    <div className="col-2">
+                        <img className="w-100" src={alien} alt="Alien"/>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-12">
+                <div className="row">
+                    <div className="col-12">
                         <h4>Press the button to start the game</h4>
                         <p>
                             Read the instructions carefully and help Bob translate the alien language. <br/>

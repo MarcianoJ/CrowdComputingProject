@@ -2,59 +2,68 @@ import axios from 'axios';
 import uuid from 'react-uuid'
 
 export function startNewGame(props, userContext, cookies, setCookie) {
-    if(userContext.user == null)
-        signupAnonymous(props, userContext, cookies, setCookie)
-
-    //START AN SENTIMENT TASK
-    if(Math.random() >= 0.5){
-        var sentiment_input = []
-        var ids = []
-         getRandomSentimentTaks(cookies.token).then(taskResponse =>{
-            for (var counter = 0; counter <= taskResponse.data_point_count; counter++){
-                getSentence(cookies.token,taskResponse.id, counter).then(sentenceResponse =>{
-                    sentiment_input.push(sentenceResponse.input)
-                    ids.push(sentenceResponse.id)
-                    if (sentiment_input.length == taskResponse.data_point_count){
-                        props.navigate(`sentiment/label/${uuid()}`, {state:{
-                                     sentences: sentiment_input,
-                                     sentenceIndex: 0,
-                                     ids:ids,
-                                     task_id: taskResponse.task_id
-                                 }})
-                    }
-                })
-            }
-            
+    if(cookies.token == null){
+        signupAnonymous(props, userContext, cookies, setCookie).then((token)=>{
+            _startGame(props, userContext, token, setCookie)
         })
-        return
     }
-    //START AN ENTAILMENT TASK 
     else{
-        props.navigate("/" , {state: {refresh:true}})
-        return
-    //     axios.get(process.env.REACT_APP_BASE_URL + "/api/v1/users")
-    // .then(response => {
-    //     //TODO: get sentences form api.
-    //     var sentences = [["An adult dressed in black holds a stick.", " An adult is walking away, empty-handed"],["A child in a yellow plastic safety swing is laughing as a dark-haired woman in pink and coral pants stands behind her", "A young mother is playing with her daughter in a swing."] ]
-    //     var gameid = uuid()
-    //     props.navigate(`entailment/label/${gameid}`, {state:{
-    //         sentences: sentences,
-    //         sentenceIndex: 0
-    //     }})
-    // })
-    // .catch(err => {      
-    //     var sentences = [["An adult dressed in black holds a stick.", " An adult is walking away, empty-handed"],["A child in a yellow plastic safety swing is laughing as a dark-haired woman in pink and coral pants stands behind her", "A young mother is playing with her daughter in a swing."] ]
-    //     var gameid = uuid()
-    //     props.navigate(`entailment/label/${gameid}`, {state:{
-    //         sentences: sentences,
-    //         sentenceIndex: 0
-    //     }})
-    // })
-    }
-
-    
+        _startGame(props, userContext, cookies.token, setCookie)
+    } 
 }
 
+function _startGame(props, userContext, token, setCookie) {
+    if(Math.random() >= 0.5)
+        _startEntailmentGame(props, userContext, token, setCookie)
+    else
+        _startSentimentGame(props, userContext, token, setCookie)
+}
+
+
+function _startEntailmentGame(props, userContext, token, setCookie){
+    var sentiment_input = []
+    var ids = []
+     getRandomSentimentTaks(token).then(taskResponse =>{
+        for (var counter = 0; counter <= taskResponse.data_point_count; counter++){
+            getSentence(token,taskResponse.id, counter).then(sentenceResponse =>{
+                sentiment_input.push(sentenceResponse.input)
+                ids.push(sentenceResponse.id)
+                if (sentiment_input.length == taskResponse.data_point_count){
+                    props.navigate(`sentiment/label/${uuid()}`, {state:{
+                                 sentences: sentiment_input,
+                                 sentenceIndex: 0,
+                                 ids:ids,
+                                 task_id: taskResponse.task_id
+                             }})
+                }
+            })
+        }
+        
+    })
+}
+
+function _startSentimentGame(props, userContext, token, setCookie) {
+    props.navigate("/" , {state: {refresh:true}})
+    return
+//     axios.get(process.env.REACT_APP_BASE_URL + "/api/v1/users")
+// .then(response => {
+//     //TODO: get sentences form api.
+//     var sentences = [["An adult dressed in black holds a stick.", " An adult is walking away, empty-handed"],["A child in a yellow plastic safety swing is laughing as a dark-haired woman in pink and coral pants stands behind her", "A young mother is playing with her daughter in a swing."] ]
+//     var gameid = uuid()
+//     props.navigate(`entailment/label/${gameid}`, {state:{
+//         sentences: sentences,
+//         sentenceIndex: 0
+//     }})
+// })
+// .catch(err => {      
+//     var sentences = [["An adult dressed in black holds a stick.", " An adult is walking away, empty-handed"],["A child in a yellow plastic safety swing is laughing as a dark-haired woman in pink and coral pants stands behind her", "A young mother is playing with her daughter in a swing."] ]
+//     var gameid = uuid()
+//     props.navigate(`entailment/label/${gameid}`, {state:{
+//         sentences: sentences,
+//         sentenceIndex: 0
+//     }})
+// })
+}
 
 export function handleSignup(props, userContext, cookies, setCookie) {
     document.getElementById("email_error").innerHTML = ""
@@ -111,21 +120,22 @@ export function handleLogin(props, userContext, cookies, setCookie) {
 }
 
 
-function signupAnonymous(props, userContext, cookies, setCookie){
-    axios.post(process.env.REACT_APP_BASE_URL + "/api/v1/sessions", {
+async function signupAnonymous(props, userContext, cookies, setCookie){
+    return await axios.post(process.env.REACT_APP_BASE_URL + "/api/v1/sessions", {
         "email": "anonymous",
         "password": ""
     })
     .then(response => {
-        console.log("new anonymous user created")
         setCookie('token', response.data.token);
         setCookie('anonymous',true);
         setCookie('id', response.data.id);
+
         userContext.setUser(cookies.token ? {token: cookies.token} : null)
-        props.navigate.reload()
+        return response.data.token
     })
     .catch(err => {   
         console.log(err)
+        return
     })
 }
 

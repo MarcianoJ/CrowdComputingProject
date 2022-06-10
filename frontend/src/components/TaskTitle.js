@@ -21,7 +21,6 @@ export default function TaskTitle(props) {
     var task = props.task
     var showTitle = task && task != no_task
     var label = getLabel();
-    console.log(label)
     return (
         showTitle ? 
             <div className="container justify-content-center">
