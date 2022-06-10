@@ -19,7 +19,7 @@ class Api::V1::RandomTaskSetsController < Api::V1::ApplicationController
     task_sets = task_sets.where(task_id: params[:task_id]) if params[:task_id].present?
 
     random_task_set = task_sets.to_a.uniq.sample
-    data_point_count = random_task_set&.data_points&.count.to_i
+    data_point_count = random_task_set&.data_points&.length.to_i
 
     random_task_set_attributes = random_task_set&.attributes&.merge({ data_point_count: data_point_count })
     
