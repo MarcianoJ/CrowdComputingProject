@@ -8,6 +8,7 @@ const Finished = (props) => {
     const [cookies, setCookie, removeCookie] = useCookies();
     const [isLoading, setIsLoading] = useState(false)
 
+    const formlink = "https://docs.google.com/forms/d/e/1FAIpQLSfgO1bNkmnK7Joe8SNi9t2MQiDWfXYqAXcF6f5YbKjCf6egzg/viewform?usp=sf_link"
     function handlePlayagain() {
         if(!isLoading) {
             setIsLoading(true)
@@ -22,6 +23,11 @@ const Finished = (props) => {
                 <h4>You have completed the game!</h4>
                 <h5>By helping us gather information about task explanations, you brought us one step closer to better explainable AI.</h5>
                 <h5>Thank you very much!</h5>
+                {
+                    formlink == "" 
+                    ? "" 
+                    : <h5>Help us further improve the game by filling in the following <a target="_blank" href="https://docs.google.com/forms/d/e/1FAIpQLSfgO1bNkmnK7Joe8SNi9t2MQiDWfXYqAXcF6f5YbKjCf6egzg/viewform?usp=sf_link">form</a>.</h5>
+                }
                 <button className="mt-3 btn btn-primary main-button" onClick={handlePlayagain}>
                 {!isLoading ? 
                     (<span>Play again</span>)
