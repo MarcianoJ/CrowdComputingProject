@@ -24,20 +24,20 @@ function _startEntailmentGame(props, userContext, token, setCookie){
     var sentiment_input = []
     var ids = []
      getRandomSentimentTaks(token).then(taskResponse =>{
-        for (var counter = 0; counter <= taskResponse.data_point_count; counter++){
-            getSentence(token,taskResponse.id, counter).then(sentenceResponse =>{
-                sentiment_input.push(sentenceResponse.input)
-                ids.push(sentenceResponse.id)
-                if (sentiment_input.length == taskResponse.data_point_count){
-                    props.navigate(`sentiment/label/${uuid()}`, {state:{
-                                 sentences: sentiment_input,
-                                 sentenceIndex: 0,
-                                 ids:ids,
-                                 task_id: taskResponse.task_id
-                             }})
+            getAllSentences(token,taskResponse.id).then(sentenceResponse =>{
+                for(const datapoint of sentenceResponse.unfinished_data_points){
+                    var id = datapoint.id
+                    ids.push(id)
+                    sentiment_input.push(datapoint.input)
                 }
+                props.navigate(`sentiment/label/${uuid()}`, {state:{
+                    sentences: sentiment_input,
+                    sentenceIndex: 0,
+                    ids:ids,
+                    task_id: taskResponse.task_id
+                }})
+                
             })
-        }
         
     })
 }
@@ -139,6 +139,25 @@ async function signupAnonymous(props, userContext, cookies, setCookie){
     })
 }
 
+
+async function getAllSentences(token,task_set_id ) {
+      var config = {
+        method: 'get',
+        url: process.env.REACT_APP_BASE_URL+'/api/v1/unfinished_data_points',
+        params: {
+            token:token, 
+            task_set_id:task_set_id
+        }
+      };
+      return await axios(config)
+      .then(function (response) {
+        console.log(response)
+        return response.data
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+}
 
 
 async function getRandomSentimentTaks(token){
