@@ -32,7 +32,7 @@ const Finished = (props) => {
                 {!isLoading ? 
                     (<span>Play again</span>)
                     :
-                    (<div class="spinner-border text-light" role="status"><span class="sr-only"></span></div>)
+                    (<div className="spinner-border text-light" role="status"><span className="sr-only"></span></div>)
                 }
                 </button>
             </div>

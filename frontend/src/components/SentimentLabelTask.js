@@ -39,6 +39,8 @@ const SentimentLabelTask = (props) => {
         else{
             props.navigate(`entailment/rational/${gameid}`, {state:{
                 sentences:sentences,
+                ids:location.state.ids,
+                task_id: location.state.task_id,
                 sentenceIndex:sentenceIndex-1
             }
             })

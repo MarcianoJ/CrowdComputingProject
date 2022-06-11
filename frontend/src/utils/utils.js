@@ -23,46 +23,55 @@ function _startGame(props, userContext, token, setCookie) {
 function _startEntailmentGame(props, userContext, token, setCookie){
     var sentiment_input = []
     var ids = []
-     getRandomSentimentTaks(token).then(taskResponse =>{
-            getAllSentences(token,taskResponse.id).then(sentenceResponse =>{
-                for(const datapoint of sentenceResponse.unfinished_data_points){
-                    var id = datapoint.id
-                    ids.push(id)
-                    sentiment_input.push(datapoint.input)
-                }
-                props.navigate(`sentiment/label/${uuid()}`, {state:{
-                    sentences: sentiment_input,
-                    sentenceIndex: 0,
-                    ids:ids,
-                    task_id: taskResponse.task_id
-                }})
-                
-            })
+     getRandomTaks(token, 'textual_entailment').then(taskResponse =>{
+        console.log(taskResponse)
+        if(taskResponse.id === undefined)
+            return props.navigate("/",{state: {refresh:true}} )
+        getAllSentences(token,taskResponse.id).then(sentenceResponse =>{
+            console.log(sentenceResponse.unfinished_data_point_count)
+            if(sentenceResponse.unfinished_data_point_count == 0)
+                return props.navigate("/",{state: {refresh:true}} )
+            for(const datapoint of sentenceResponse.unfinished_data_points){
+                var id = datapoint.id
+                ids.push(id)
+                sentiment_input.push([datapoint.input, datapoint.input2])
+            }
+            console.log(sentiment_input)
+            props.navigate(`entailment/label/${uuid()}`, {state:{
+                sentences: sentiment_input,
+                sentenceIndex: 0,
+                ids:ids,
+                task_id: taskResponse.id
+            }})
+            
+        })
         
     })
 }
 
 function _startSentimentGame(props, userContext, token, setCookie) {
-    props.navigate("/" , {state: {refresh:true}})
-    return
-//     axios.get(process.env.REACT_APP_BASE_URL + "/api/v1/users")
-// .then(response => {
-//     //TODO: get sentences form api.
-//     var sentences = [["An adult dressed in black holds a stick.", " An adult is walking away, empty-handed"],["A child in a yellow plastic safety swing is laughing as a dark-haired woman in pink and coral pants stands behind her", "A young mother is playing with her daughter in a swing."] ]
-//     var gameid = uuid()
-//     props.navigate(`entailment/label/${gameid}`, {state:{
-//         sentences: sentences,
-//         sentenceIndex: 0
-//     }})
-// })
-// .catch(err => {      
-//     var sentences = [["An adult dressed in black holds a stick.", " An adult is walking away, empty-handed"],["A child in a yellow plastic safety swing is laughing as a dark-haired woman in pink and coral pants stands behind her", "A young mother is playing with her daughter in a swing."] ]
-//     var gameid = uuid()
-//     props.navigate(`entailment/label/${gameid}`, {state:{
-//         sentences: sentences,
-//         sentenceIndex: 0
-//     }})
-// })
+    var sentiment_input = []
+    var ids = []
+     getRandomTaks(token, 'sentiment_analysis').then(taskResponse =>{
+        console.log(taskResponse)
+        getAllSentences(token,taskResponse.id).then(sentenceResponse =>{
+            if(sentenceResponse.unfinished_data_point_count == 0)
+                return props.navigate("/",{state: {refresh:true}} )
+            for(const datapoint of sentenceResponse.unfinished_data_points){
+                var id = datapoint.id
+                ids.push(id)
+                sentiment_input.push(datapoint.input)
+            }
+            props.navigate(`sentiment/label/${uuid()}`, {state:{
+                sentences: sentiment_input,
+                sentenceIndex: 0,
+                ids:ids,
+                task_id: taskResponse.task_id
+            }})
+            
+        })
+        
+    })
 }
 
 export function handleSignup(props, userContext, cookies, setCookie) {
@@ -160,12 +169,13 @@ async function getAllSentences(token,task_set_id ) {
 }
 
 
-async function getRandomSentimentTaks(token){
+async function getRandomTaks(token, task_name){
     var config = {
         method: 'get',
         url: process.env.REACT_APP_BASE_URL+'/api/v1/random_task_set',
         params: {
-            token: token
+            token: token, 
+            nlp_kind : task_name
         }
     };
     return await axios(config)

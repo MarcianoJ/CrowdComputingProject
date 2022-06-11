@@ -6,12 +6,15 @@ import {resetHighlight, removeHighlight, highlight} from '../utils/entailmentHig
 import Instructions, {instruction_entailment} from "./Instructions";
 import TaskTitle, {entailment_highlight, entailment_highlight_instruction} from "./TaskTitle";
 import { entailment_label_contradicts, entailment_label_is_neutral, entailment_label_entails } from './EntailmentLabelTask';
+import { publishBatchResults } from '../utils/utils'
+import { useCookies } from 'react-cookie';
 
 const EntailmentHighlight = (props) => {
     const location = useLocation()
     const { gameid } = useParams()
     const [selectStatus, setSelectStatus] = useState(0)
-    
+    const [cookies, setCookie, removeCookie] = useCookies();
+
     var sentences = location.state.sentences
     var sentenceIndex = location.state.sentenceIndex
     var sentence = sentences[sentenceIndex]
@@ -59,6 +62,8 @@ const EntailmentHighlight = (props) => {
     function goBackHandler(e) {
         props.navigate(`/entailment/label/${gameid}`, {state:{
             sentences:sentences,
+            ids:location.state.ids,
+            task_id: location.state.task_id,
             sentenceIndex:sentenceIndex
         }
         })
@@ -71,12 +76,34 @@ const EntailmentHighlight = (props) => {
             return
         }
         if(sentenceIndex >= sentences.length-1){
-            //TODO: push results to database
+            let final_results = {}
+            let counter = 0
+            console.log(props.data)
+            for(let key in props.data){
+                var result = props.data[key]
+                let rational1 = []
+                let rational2 = []
+                for (var i = 0; i < result.rational.length; i++) {
+                    rational1.push(result.rational[i][0])
+                    rational2.push(result.rational[i][1])
+                }
+                final_results[counter] = {
+                    "classification":result.label,
+                    "rationale_words":rational1,
+                    "rationale_words2":rational2,
+                    "data_point_id":location.state.ids[counter],
+                    "task_set_id":location.state.task_id
+                }
+                counter++
+            }
+            publishBatchResults(cookies.token,final_results)
             props.navigate("/finished")
         }
         else{
             props.navigate(`entailment/label/${gameid}`, {state:{
                 sentences: sentences,
+                ids:location.state.ids,
+                task_id: location.state.task_id,
                 sentenceIndex: sentenceIndex+1
             }
             })

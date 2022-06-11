@@ -60,6 +60,7 @@ const SentimentHighlightTask = (props) => {
                     "data_point_id":location.state.ids[counter],
                     "task_set_id":location.state.task_id
                 }
+                counter++
             }
             publishBatchResults(cookies.token,final_results)
             props.navigate("/finished")
