@@ -133,7 +133,7 @@ class TaskSet < ApplicationRecord
         .select('task_sets.*')
   }
 
-  def self.create_from_data_points(task, total_amount: 20, gold_standard_amount: 7, dataset: nil, name: nil, tutorial: false)
+  def self.create_from_data_points(task, total_amount: 10, gold_standard_amount: 3, dataset: nil, name: nil, tutorial: false)
     ApplicationRecord.transaction do
       raise 'Task does not belong to dataset' if dataset.present? && dataset&.task != task
 

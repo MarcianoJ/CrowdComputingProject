@@ -19,7 +19,7 @@ class Task < ApplicationRecord
 
   enum nlp_kind: [:sentiment_analysis, :textual_entailment]
 
-  def create_task_set_from_data_points(total_amount: 20, gold_standard_amount: 7, dataset: nil, name: nil, tutorial: false)
+  def create_task_set_from_data_points(total_amount: 10, gold_standard_amount: 3, dataset: nil, name: nil, tutorial: false)
     TaskSet.create_from_data_points(
       self,
       total_amount: total_amount,
