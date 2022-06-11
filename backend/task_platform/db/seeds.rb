@@ -50,21 +50,25 @@ end
 
 # Unlabeled sentiment dataset creation
 unlabeled_sentiment_dataset = Dataset.create!(name: 'Unlabeled sentiment dataset', gold_standard: false, task: task_sentiment)
-file = File.open Rails.root + "app/assets/datasets/amazon-automotive-reviews/automotive_processed_min.json"
+file = File.open Rails.root + "app/assets/datasets/amazon-automotive-reviews/automotive_processed.json"
 data = JSON.load file
 file.close
-data.each do |review|
-  unlabeled_sentiment_dataset.data_points.create!(input: review['reviewText'])
+unlabeled_sentiment_attributes = []
+data.first(7000).each do |review|
+  unlabeled_sentiment_attributes << { dataset_id: unlabeled_sentiment_dataset.id, input: review['reviewText'], created_at: Time.zone.now, updated_at: Time.zone.now }
 end
+DataPoint.insert_all(unlabeled_sentiment_attributes)
 
 # Unlabeled entailment dataset creation
 unlabeled_entailment_dataset = Dataset.create!(name: 'Unlabeled entailment dataset', gold_standard: false, task: task_entailment)
-file = File.open Rails.root + "app/assets/datasets/stanford-textual-entailment/entailment_processed_min.json"
+file = File.open Rails.root + "app/assets/datasets/stanford-textual-entailment/entailment_processed.json"
 data = JSON.load file
 file.close
-data.each do |entry|
-  unlabeled_entailment_dataset.data_points.create!(input: entry['sentence1'], input2: entry['sentence2'])
+unlabeled_entailment_attributes = []
+data.first(7000).each do |entry|
+  unlabeled_entailment_attributes << { dataset_id: unlabeled_entailment_dataset.id, input: entry['sentence1'], input2: entry['sentence2'], created_at: Time.zone.now, updated_at: Time.zone.now }
 end
+DataPoint.insert_all(unlabeled_entailment_attributes)
 
 # User creation
 admin = User.create!(name: 'Admin', email: 'admin@example.com', password: 'testtest', role: :admin)

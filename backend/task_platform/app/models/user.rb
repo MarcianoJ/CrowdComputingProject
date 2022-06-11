@@ -21,7 +21,7 @@
 #  anonymous              :boolean          default(FALSE), not null
 #
 class User < ApplicationRecord
-  UNFINISHED_TASK_SET_AMOUNT = 3.freeze
+  UNFINISHED_TASK_SET_AMOUNT = 5.freeze
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
@@ -41,8 +41,17 @@ class User < ApplicationRecord
 
   def public_attributes
     attributes.with_indifferent_access
-        .except('encrypted_password', 'token')
-        .merge({
+        .except('encrypted_password',
+          'token',
+          "reset_password_token",
+          "reset_password_sent_at",
+          "remember_created_at",
+          "sign_in_count",
+          "current_sign_in_at",
+          "last_sign_in_at",
+          "current_sign_in_ip",
+          "last_sign_in_ip"
+        ).merge({
           unfinished_task_set_count: task_sets.unfinished_for_user(self).distinct.length
         })
   end
@@ -67,35 +76,41 @@ class User < ApplicationRecord
   def assign_to_task_sets
     return unless user?
 
-    pending_task_sets = task_sets.assigned_for_user(self).unfinished_for_user(self).distinct
+    new_task_sets = []
 
-    if pending_task_sets.length < UNFINISHED_TASK_SET_AMOUNT
-      needed_task_set_amount = UNFINISHED_TASK_SET_AMOUNT - pending_task_sets.length
+    Task.all.each do |task|
+      pending_task_sets = task_sets.where(task: task).assigned_for_user(self).unfinished_for_user(self).distinct
 
-      assignable_task_sets = TaskSet
-          .unassigned_for_user(self)
-          .by_usage_under_limit
+      if pending_task_sets.length < UNFINISHED_TASK_SET_AMOUNT
+        needed_task_set_amount = UNFINISHED_TASK_SET_AMOUNT - pending_task_sets.length
 
-      if assignable_task_sets.length < needed_task_set_amount
-        Task.all.each do |task|
+        assignable_task_sets = task.task_sets
+            .unassigned_for_user(self)
+            .by_usage_under_limit
+
+        if assignable_task_sets.length < needed_task_set_amount
           2.times do
             task.create_task_set_from_data_points
           end
         end
+
+        assignable_task_sets = task.task_sets
+            .unassigned_for_user(self)
+            .by_usage_under_limit
+
+        if assignable_task_sets.length < needed_task_set_amount
+          assignable_task_sets = task.task_sets
+            .unassigned_for_user(self)
+            .by_usage
+        end
+
+        new_task_sets += assignable_task_sets.first(needed_task_set_amount)
       end
 
-      assignable_task_sets = TaskSet
-          .unassigned_for_user(self)
-          .by_usage_under_limit
-
-      if assignable_task_sets.length < needed_task_set_amount
-        assignable_task_sets = TaskSet
-          .unassigned_for_user(self)
-          .by_usage
-      end
-
-      self.task_sets = (task_sets + assignable_task_sets.first(needed_task_set_amount)).compact.uniq
+      self.task_sets = (task_sets + new_task_sets).compact.uniq
     end
+
+    self.task_sets
   end
 
   def assign_to_all_task_sets

@@ -15,7 +15,7 @@ class Api::V1::RandomTaskSetsController < Api::V1::ApplicationController
     # tasks = tasks.where(nlp_kind: params[:nlp_kind]) if params[:nlp_kind].present?
 
     task_sets = current_user.task_sets.includes(:task).unfinished_for_user(current_user)
-    task_sets = task_sets.where(tasks: { nlp_kind: params[:nlp_kind] }).group('tasks.id').select('tasks.*') if params[:nlp_kind].present?
+    task_sets = task_sets.where(tasks: { nlp_kind: params[:nlp_kind] }).group('tasks.id, task_sets.id').select('tasks.*, task_sets.*') if params[:nlp_kind].present?
     task_sets = task_sets.where(task_id: params[:task_id]) if params[:task_id].present?
 
     random_task_set = task_sets.to_a.uniq.sample
