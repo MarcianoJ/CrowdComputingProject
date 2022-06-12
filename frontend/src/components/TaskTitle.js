@@ -1,6 +1,4 @@
-import React, { useContext} from 'react'
-import UserContext from './User';
-import { useCookies } from 'react-cookie';
+import React from 'react'
 
 export const no_task = 0
 export const entailment_classify = 1
@@ -14,12 +12,10 @@ export const sentiment_highlight_instruction = 4.5
 
 
 export default function TaskTitle(props) {
-    const userContext = useContext(UserContext);
-    const [cookies, setCookie, removeCookie] = useCookies();
     
     
     var task = props.task
-    var showTitle = task && task != no_task
+    var showTitle = task && task !== no_task
     var label = getLabel();
     return (
         showTitle ? 

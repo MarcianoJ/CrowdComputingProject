@@ -20,6 +20,7 @@ const EntailmentHighlight = (props) => {
     var sentence = sentences[sentenceIndex]
 
     var data = props.data
+    console.log(data)
     function getSentimentLabel() {
         var label_id = data[sentence[0]].label;
         if (label_id == entailment_label_contradicts) {
