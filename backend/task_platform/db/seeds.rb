@@ -54,7 +54,7 @@ file = File.open Rails.root + "app/assets/datasets/amazon-automotive-reviews/aut
 data = JSON.load file
 file.close
 unlabeled_sentiment_attributes = []
-data.first(7000).each do |review|
+data.sample(7000).each do |review|
   unlabeled_sentiment_attributes << { dataset_id: unlabeled_sentiment_dataset.id, input: review['reviewText'], created_at: Time.zone.now, updated_at: Time.zone.now }
 end
 DataPoint.insert_all(unlabeled_sentiment_attributes)
@@ -65,7 +65,7 @@ file = File.open Rails.root + "app/assets/datasets/stanford-textual-entailment/e
 data = JSON.load file
 file.close
 unlabeled_entailment_attributes = []
-data.first(7000).each do |entry|
+data.sample(7000).each do |entry|
   unlabeled_entailment_attributes << { dataset_id: unlabeled_entailment_dataset.id, input: entry['sentence1'], input2: entry['sentence2'], created_at: Time.zone.now, updated_at: Time.zone.now }
 end
 DataPoint.insert_all(unlabeled_entailment_attributes)
@@ -124,5 +124,37 @@ alien_story_1.alien_comments.create!(
   translated: "Well if you say so. Then I want to talk to your leader. Who is the head of your planet?",
   robot_response: "Well, that's hard to say. Technically, there isn't something as a global leader, really..."
 )
+
+alien_story_1.alien_comments.create!(
+  untranslated: Devise.friendly_token(100),
+  translated: "You have no leader?! That would be a recipy of disaster, wouldn't it?",
+  robot_response: "Apart from some wars, we manage. Sometimes dictators rise to conquer and oppress people, but luckily that is not the norm."
+)
+
+alien_story_1.alien_comments.create!(
+  untranslated: Devise.friendly_token(100),
+  translated: "Oppression and conquering, noted. We are exceptionally good at that! We'll play this game with you! May the best species win!!",
+  robot_response: "That would not be much of a challenge, would it? Have you ever heard of diplomacy? That is the highly suffisticated art of obtaining power, without violence. Only the smartest are able to do this."
+)
+
+alien_story_1.alien_comments.create!(
+  untranslated: Devise.friendly_token(100),
+  translated: "Interesting, let's try this. So how do you 'diplomacy'?",
+  robot_response: "It is easy. Just make all involved parties happy, so everyone is better off at the end."
+)
+
+alien_story_1.alien_comments.create!(
+  untranslated: Devise.friendly_token(100),
+  translated: "We are great warriors. What if we offer you protection in exchange for a torture show using some of your humans?",
+  robot_response: "How about we give you something more valuable instead: our entire meme collection, hand crafted by some of our dankest individuals."
+)
+
+alien_story_1.alien_comments.create!(
+  untranslated: Devise.friendly_token(100),
+  translated: "That sounds like a great deal! Let's do it!! I love diplomacy!!!",
+  robot_response: "A great deal indeed! Thank you for not destroying us and we'll meet you again soon!!!"
+)
+
+
 
 puts "Database successfully seeded"
