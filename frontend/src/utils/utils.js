@@ -66,7 +66,7 @@ function _startSentimentGame(props, userContext, token, setCookie) {
                 sentences: sentiment_input,
                 sentenceIndex: 0,
                 ids:ids,
-                task_id: taskResponse.task_id
+                task_id: taskResponse.id
             }})
             
         })
