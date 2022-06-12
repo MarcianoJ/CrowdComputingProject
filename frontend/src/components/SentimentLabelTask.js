@@ -59,7 +59,7 @@ const SentimentLabelTask = (props) => {
             <div className="d-flex justify-content-center flex-wrap contained">
                 {sentence.split(/ /g).map((w, i) => <span key={i} className="unclickable_word">{w}</span>)}
             </div>
-            <TaskTitle task={sentiment_classify_instruction}/>
+            <br />
             <div className="d-flex justify-content-center buttonbox">
                 <button id={sentiment_label_negative} className="btn btn-danger" onClick={labelSelectHandler}>Negative</button>
                 <button id={sentiment_label_neutral} className="btn btn-secondary" onClick={labelSelectHandler}>Neutral</button>

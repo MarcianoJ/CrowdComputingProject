@@ -106,6 +106,7 @@ const SentimentHighlightTask = (props) => {
             <div className="d-flex justify-content-center flex-wrap contained">
                 {clickableWords(words, word_clicked)}
             </div>
+            <br />
             <div className="d-flex justify-content-center buttonbox">
                 <button className="btn btn-danger" onClick={resetHandler}>Reset</button>
                 <button className="btn btn-success"  onClick={submit}>Finish</button>
