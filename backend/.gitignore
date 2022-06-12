@@ -39,7 +39,7 @@ task_platform/yarn-error.log
 task_platformyarn-debug.log*
 task_platform.yarn-integrity
 
-
+task_platform/app/assets/datasets/stanford-textual-entailment/snli_1.0
 
 *\node_modules
 
