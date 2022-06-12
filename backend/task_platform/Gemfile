@@ -31,8 +31,6 @@ gem 'jbuilder', '~> 2.7'
 # Note that there is a bug in Bundler that means there's currently no platform option that will match 64-bit Ruby 3.1 on Windows.
 # The solution here to remove the platforms option.
 gem 'tzinfo-data'#, platforms: [:mingw, :mswin, :x64_mingw, :jruby]
-
-gem 'wdm', '>= 0.1.0' if Gem.win_platform?
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 
