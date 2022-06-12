@@ -29,7 +29,7 @@ export default function UI(props){
 
         var config = {
             method: 'get',
-            url: 'http://localhost:3000/api/v1/next_alien_comment',
+            url: process.env.REACT_APP_BASE_URL + "/api/v1/next_alien_comment",
             
             params : {
                 token: cookies.token,
