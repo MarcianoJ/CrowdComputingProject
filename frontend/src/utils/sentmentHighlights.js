@@ -6,7 +6,7 @@ export function highlight(e,props,sentence) {
     var data = props.data 
     
     if (sentence.substring(selStart, selEnd) == " " || sentence.substring(selStart, selEnd) == ""){
-        return
+        return false
     }
 
     var newStart = selStart
@@ -29,11 +29,12 @@ export function highlight(e,props,sentence) {
     }
 
     if(data[sentence]["rational"].includes(finalSelection)){
-        return
+        return false
     }
  
     data[sentence]["rational"] = [...data[sentence]["rational"], finalSelection]
     props.setData(({...data}))
+    return true
 }
 
 export function removeHighlight(e, props, sentence) {

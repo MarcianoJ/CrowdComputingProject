@@ -6,9 +6,8 @@ export function highlight(e,props,sentences) {
     var data = props.data 
     var sentence = sentences[e.target.id]
     var first_sentence = sentences[0]
-    
     if (sentence.substring(selStart, selEnd) == " " || sentence.substring(selStart, selEnd) == ""){
-        return
+        return false
     }
 
     var newStart = selStart
@@ -31,16 +30,18 @@ export function highlight(e,props,sentences) {
     }
 
     if(data[first_sentence]["rational"].includes(finalSelection)){
-        return
+        return false
     }
     if(e.target.id == 0)
         data[first_sentence]["rational"] = [...data[first_sentence]["rational"], [finalSelection]]
     else if(e.target.id == 1){
+        console.log(data[first_sentence]["rational"])
         var index = data[first_sentence]["rational"].length - 1
         data[first_sentence]["rational"][index].push(finalSelection)
     }
 
     props.setData(({...data}))
+    return true
 }
 
 export function removeHighlight(e, props, sentences) {
