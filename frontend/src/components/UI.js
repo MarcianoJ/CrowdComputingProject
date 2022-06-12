@@ -1,48 +1,89 @@
-import React from "react";
-
+import React,{ useState, useEffect } from "react";
 import alien from '../images/alien.jpeg'
 import robot from '../images/robot.jpeg'
+import { useCookies } from 'react-cookie';
+import axios from 'axios';
+import { useLocation, useParams } from "react-router-dom";
 
-String.prototype.shuffle = function () {
-    var a = this.split(""),
-        n = a.length;
-
-    for(var i = n - 1; i > 0; i--) {
-        var j = Math.floor(Math.random() * (i + 1));
-        var tmp = a[i];
-        a[i] = a[j];
-        a[j] = tmp;
-    }
-    return a.join("");
-}
 
 export default function UI(props){
-    var sentence = "We demand the recipe for that delicious strawberry cheesecake";
-    var sentenceClear = sentence.substring(0,props.index*2)
-    var sentenceScrambled = sentence.substring(props.index*2).replace(/\s/g, "").shuffle()
+    const [cookies, setCookie, removeCookie] = useCookies();
+    const [sentenceClear, setsentenceClear] = useState("");
+    const [sentenceClearPartial, setSentenceClearPartial] = useState("")
+    const [robotResponse, setRobotResponse] = useState("")
+    const { gameid } = useParams()
+    if(cookies.story_id == undefined || cookies.story_id == 8)
+        setCookie('story_id', 0)
 
+    useEffect(() =>{
+        var div = (Math.ceil(sentenceClear.length/props.sentencesLength))
+        var counter = 0
+        for(let i = 0; i<sentenceClear.length; i++){
+            if (counter-1 == props.index){
+                setSentenceClearPartial(sentenceClear.substring(0, i))
+            }
+            if (i%div == 0){
+                counter++
+            }
+        }
+
+        var config = {
+            method: 'get',
+            url: 'http://localhost:3000/api/v1/next_alien_comment',
+            
+            params : {
+                token: cookies.token,
+                alien_story_id: 1,
+                alien_comment_id:cookies.story_id
+            }};
+    
+            axios(config)
+            .then(function (response) {
+                setsentenceClear(response.data.translated)
+                if(response.data.robot_response != robotResponse)
+                    setRobotResponse(response.data.robot_response)
+            })
+            .catch(function (error) {
+            console.log(error);
+            });
+        
+    }, [sentenceClearPartial, sentenceClear])
+
+
+    const characters ='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+
+    function generateString(length) {
+        let result = ' ';
+        const charactersLength = characters.length;
+        for ( let i = 0; i < length; i++ ) {
+            result += characters.charAt(Math.floor(Math.random() * charactersLength));
+        }
+    
+        return result;
+    }
+    
     return(
-        <div className="d-flex justify-content-center mt-5">
-            <div>
-                <img src={alien} alt="Alien" width="300" />
+        <div className="container ui-container mt-5">
+            <div className="image-div container">
+                <img src={alien} alt="Alien"  />
             </div>
-            <div className="">
+            <div className="sentences container">
                 <div className="box mb-3">
-                    <p>{sentenceScrambled}</p>
+                    <p>{sentenceClearPartial.concat(generateString(sentenceClear.length - sentenceClearPartial.length - 1))}</p>
                 </div>
                 <div className="box">
-                    <p>{sentenceClear}</p>
+                {(props.index == props.sentencesLength-1) ? <p>{robotResponse}</p> : <p></p>}
+                    <p></p>
                 </div>
             </div>
-            
-
-            <div >
-                <img src={robot} alt="Robot" width="300" />
-                <div style={{fontFamily: 'Brush Script MT'}} className="text centered">{parseInt(props.index/35*100)}%</div>
+            <div style={{fontFamily: 'Brush Script MT'}} className="d-flex justify-content-center text">
+                <p>{parseInt((props.index/(props.sentencesLength-1))*100)}%</p>
             </div>
-
-
+            <div className="image-div container">
+                <img src={robot} alt="Robot" />
+            </div>
         </div>
     )
 
 }
+
