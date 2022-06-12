@@ -1,10 +1,14 @@
-import React from 'react'
+import React, { useContext} from 'react'
+import UserContext from '../components/User';
+import { useCookies } from 'react-cookie';
 
 export const no_instruction = 0
 export const instruction_sentiment_analysis = 1
 export const instruction_entailment = 2
 
 export default function Instructions(props) {
+    const userContext = useContext(UserContext);
+    const [cookies, setCookie, removeCookie] = useCookies();
 
     const [showInstructions, setShowInstructions] = React.useState(false)
     

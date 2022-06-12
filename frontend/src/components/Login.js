@@ -1,11 +1,12 @@
 import React, { useContext } from 'react'
+import axios from 'axios';
 import UserContext from '../components/User';
 
 import { useCookies } from 'react-cookie';
 import { handleLogin } from '../utils/utils'
 const Login = (props) => {
     const userContext = useContext(UserContext);
-    const [cookies, setCookie] = useCookies();
+    const [cookies, setCookie, removeCookie] = useCookies();
     function handleSubmit(e) {
        handleLogin(props, userContext, cookies, setCookie)
     }

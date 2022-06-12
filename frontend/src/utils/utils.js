@@ -24,7 +24,6 @@ function _startEntailmentGame(props, userContext, token, setCookie){
     var sentiment_input = []
     var ids = []
      getRandomTaks(token, 'textual_entailment').then(taskResponse =>{
-        console.log('response:')
         console.log(taskResponse)
         if(taskResponse.id === undefined)
             return props.navigate("/",{state: {refresh:true}} )
@@ -39,12 +38,10 @@ function _startEntailmentGame(props, userContext, token, setCookie){
             }
             console.log(sentiment_input)
             props.navigate(`entailment/label/${uuid()}`, {state:{
-                sentences: [sentiment_input],
+                sentences: sentiment_input,
                 sentenceIndex: 0,
                 ids:ids,
-                task_id: taskResponse.id,
-                labels:[],
-                rationales: []
+                task_id: taskResponse.id
             }})
             
         })
@@ -69,9 +66,7 @@ function _startSentimentGame(props, userContext, token, setCookie) {
                 sentences: sentiment_input,
                 sentenceIndex: 0,
                 ids:ids,
-                task_id: taskResponse.id,
-                labels:[],
-                rationales: []
+                task_id: taskResponse.id
             }})
             
         })
@@ -237,3 +232,26 @@ export function publishBatchResults(token, task_results, cookies, setCookie){
     });
 
 }
+
+
+// function getRandomSentimentTaks(){
+//     axios.get(process.env.REACT_APP_BASE_URL + "/api/v1/next_data_point")
+//     .then(response => {
+//         //TODO: get sentences form api.
+//         var sentences = ["Had he known what was going to happen, he would have never stepped into the shower.", "he would have never stepped into the shower"]
+//         var gameid = uuid()
+//         props.navigate(`sentiment/label/${gameid}`, {state:{
+//             sentences: sentences,
+//             sentenceIndex: 0
+//         }})
+//     })
+//     .catch(err => {      
+//         var sentences = ["Had he known what was going to happen, he would have never stepped into the shower.", "he would have never stepped into the shower"]
+//         var gameid = uuid()
+//         props.navigate(`sentiment/label/${gameid}`, {state:{
+//             sentences: sentences,
+//             sentenceIndex: 0
+//         }})
+//     })
+// }
+
