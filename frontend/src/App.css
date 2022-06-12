@@ -41,12 +41,17 @@
   font-size: 30px;
   color: black;
   background: white;
-  padding-right:30px;
 }
 
+.sentences{
+  height: auto;
+  margin:0;
+}
 
 .box {
   width: auto;
+  max-width: 800px;
+  min-width:600px;
   border-radius: 15px;
   background: #00bfb6;
   color: #fff;
@@ -54,8 +59,10 @@
   text-align: center;
   font-weight: 900;
   font-family: arial;
+  word-wrap: break-word;
   position: relative;
 }
+
 
 
 /* speech bubble 1 */
@@ -127,6 +134,7 @@ margin: 5px;
 .home-btn {
   justify-content: start;
   margin-left: 50px;
+  
 
 }
 
@@ -194,11 +202,16 @@ textarea.readonly {
   background-color: rgb(235, 235, 235);
 }
 
+textarea {
+  min-width: 100%;
+  min-height: 10vh;
+}
+
 
 /* Sentence label in entailment text */
 .sentence-label h5 {
   text-align: right;
-  width: 130px;
+  width: 80px;
 }
 
 .yellow {
@@ -214,6 +227,53 @@ mark.red {
 }
 
 .main-button{
-  width:15%;
+  width:30vw;
   height:45px;
+}
+
+
+.image-div img {
+  width:300px;
+}
+
+.ui-container {
+    display:flex;
+    justify-content: center;
+}
+
+@media only screen and (max-width: 600px) {
+  .main-button{
+    width:50vw;
+    height:45px;
+  }
+  .image-div img {
+    width:100px;
+  }
+  .box {
+    margin:0;
+    width: auto;
+    max-width: 300px;
+    min-width:100px;
+    border-radius: 15px;
+    background: #00bfb6;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+    font-weight: 900;
+    font-family: arial;
+    word-wrap: break-word;
+    position: relative;
+
+  }
+
+  .ui-container {
+    display:block;
+    justify-content: center;
+    margin:0;
+}
+
+textarea {
+  min-width: 50%;
+  min-height: 30vh;
+}
 }

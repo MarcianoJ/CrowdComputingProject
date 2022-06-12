@@ -51,7 +51,7 @@ const EntailmentLabelTask = (props) => {
     
     return(
         <div>
-            <UI index= {sentenceIndex}/>
+            <UI index= {sentenceIndex} sentencesLength={sentences.length}/>
             <TaskTitle task={entailment_classify}/>
             <TextArea sentence={sentence[0]} header="Context:" readOnly={true} /> 
             <TextArea sentence={sentence[1]} header="Statement:" readOnly={true} /> 
@@ -63,6 +63,7 @@ const EntailmentLabelTask = (props) => {
                 <button id={entailment_label_entails} className="btn btn-success" onClick={labelSelectHandler}>entails</button>
             </div>
             <div className="d-flex justify-content-between footer-div">
+                
                 <button id="2" className="btn btn-primary footer-btn-left" onClick={goBackHandler}>go back</button>
                 <Instructions instruction={instruction_entailment} />
             </div>

@@ -77,10 +77,8 @@ const EntailmentHighlight = (props) => {
         }
         if(sentenceIndex >= sentences.length-1){
             let final_results = {}
-            let counter = 0
-            console.log(props.data)
-            for(let key in props.data){
-                var result = props.data[key]
+            for(let counter = 0; counter < sentences.length; counter++){
+                var result = props.data[sentences[counter][0]]
                 let rational1 = []
                 let rational2 = []
                 for (var i = 0; i < result.rational.length; i++) {
@@ -94,9 +92,8 @@ const EntailmentHighlight = (props) => {
                     "data_point_id":location.state.ids[counter],
                     "task_set_id":location.state.task_id
                 }
-                counter++
             }
-            publishBatchResults(cookies.token,final_results)
+            publishBatchResults(cookies.token,final_results,cookies, setCookie)
             props.navigate("/finished")
         }
         else{
@@ -112,7 +109,7 @@ const EntailmentHighlight = (props) => {
 
     return (
         <div>
-            <UI index= {sentenceIndex}/>
+            <UI index= {sentenceIndex} sentencesLength={sentences.length}/>
 
             <TaskTitle task={entailment_highlight} label={getSentimentLabel()}/>
 

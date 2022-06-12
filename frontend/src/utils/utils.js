@@ -160,7 +160,6 @@ async function getAllSentences(token,task_set_id ) {
       };
       return await axios(config)
       .then(function (response) {
-        console.log(response)
         return response.data
       })
       .catch(function (error) {
@@ -210,7 +209,7 @@ return await axios(config)
 }
 
 
-export function publishBatchResults(token, task_results){
+export function publishBatchResults(token, task_results, cookies, setCookie){
     var axios = require('axios');
     var data = {
     "token": token,
@@ -225,7 +224,8 @@ export function publishBatchResults(token, task_results){
 
     axios(config)
     .then(function (response) {
-        console.log(response)
+        console.log("COOKIE: "+   parseInt(cookies.story_id)+1)
+        setCookie('story_id',parseInt(cookies.story_id)+1)
     })
     .catch(function (error) {
         console.log(error);

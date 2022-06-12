@@ -47,8 +47,6 @@ export function removeHighlight(e, props, sentences) {
     var first_sentence = sentences[0]
 
     var id =e.target.id
-    console.log(id)
-    console.log(props.data[first_sentence]["rational"])
     props.data[first_sentence]["rational"].splice(id, 1)
     var data = props.data 
     data[first_sentence]["rational"] = {...data}[first_sentence]["rational"]

@@ -51,7 +51,7 @@ const SentimentLabelTask = (props) => {
     
     return(
         <div>
-            <UI index= {sentenceIndex}/>
+            <UI index= {sentenceIndex} sentencesLength={sentences.length}/>
             <TaskTitle task={sentiment_classify}/>
             <TextArea sentence = {sentence} header="" readOnly={true}/> 
 

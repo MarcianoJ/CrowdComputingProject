@@ -33,7 +33,6 @@ export default function Instructions(props) {
 
 
     function getInstructions(instructions) {
-        console.log(instructions);
         if (instructions) {
             if (instructions == instruction_sentiment_analysis) {
                 return getSentimentInstructions();

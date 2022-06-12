@@ -17,7 +17,6 @@ const SentimentHighlightTask = (props) => {
     var sentences = location.state.sentences
     var sentenceIndex = location.state.sentenceIndex
     var sentence = sentences[sentenceIndex]
-
     var data = props.data
     function getSentimentLabel() {
         var label_id = data[sentence].label;
@@ -51,18 +50,16 @@ const SentimentHighlightTask = (props) => {
         if(sentenceIndex >= sentences.length-1){
             //TODO: push results to database
             let final_results = {}
-            let counter = 0
-            for(let key in props.data){
-                var result = props.data[key]
+            for(let counter = 0; counter<sentences.length; counter++){
+                var result = props.data[sentences[counter]]
                 final_results[counter] = {
                     "classification":result.label,
                     "rationale_words":result.rational,
                     "data_point_id":location.state.ids[counter],
                     "task_set_id":location.state.task_id
                 }
-                counter++
             }
-            publishBatchResults(cookies.token,final_results)
+            publishBatchResults(cookies.token,final_results,cookies, setCookie)
             props.navigate("/finished")
         }
         else{
@@ -87,7 +84,7 @@ const SentimentHighlightTask = (props) => {
 
     return (
         <div>
-            <UI index= {sentenceIndex}/>
+            <UI index= {sentenceIndex} sentencesLength={sentences.length}/>
             <TaskTitle task={sentiment_highlight} label={getSentimentLabel()}/>
             <TaskTitle task={sentiment_highlight_instruction} label={getSentimentLabel()}/>
 
@@ -108,6 +105,7 @@ const SentimentHighlightTask = (props) => {
                 <button className="btn btn-success"  onClick={submit}>finish</button>
             </div>
             <div className="d-flex justify-content-between footer-div">
+                
                 <button id="2" className="btn btn-primary footer-btn-left" onClick={goBackHandler}>go back</button>
                 <Instructions instruction={instruction_sentiment_analysis} />
             </div>
