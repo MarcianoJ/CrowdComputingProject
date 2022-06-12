@@ -13,7 +13,7 @@ require('dotenv').config()
 const Landing = (props) => {
     const userContext = useContext(UserContext);
     const location = useLocation();
-    const [cookies, setCookie, removeCookie] = useCookies();
+    const [cookies, setCookie] = useCookies();
     const [isLoading, setIsLoading] = useState(false)
 
     //reload once if required

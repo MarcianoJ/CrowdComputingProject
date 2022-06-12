@@ -16,7 +16,7 @@ import GameNav from './components/GameNav';
 
 function App() {
   const navigate = useNavigate();
-  const [cookies, setCookie, removeCookie] = useCookies();
+  const [cookies] = useCookies();
   const [data, setData] = useState({})
   const [user, setUser] = useState(cookies.token ? {token: cookies.token} : null);
 

@@ -38,6 +38,7 @@ file.close
 data.each do |review|
   gold_sentiment_dataset.data_points.create!(input: review['reviewText'], classification: review['classification'])
 end
+puts "Gold standard sentiment dataset loaded."
 
 # Gold standard entailment dataset creation
 gold_entailment_dataset = Dataset.create!(name: 'Gold standard entailment dataset', gold_standard: true, task: task_entailment)
@@ -47,6 +48,7 @@ file.close
 data.each do |entry|
   gold_entailment_dataset.data_points.create!(input: entry['sentence1'], input2: entry['sentence2'], classification: entry['gold_label'])
 end
+puts "Gold standard entailment dataset loaded."
 
 # Unlabeled sentiment dataset creation
 unlabeled_sentiment_dataset = Dataset.create!(name: 'Unlabeled sentiment dataset', gold_standard: false, task: task_sentiment)
@@ -58,6 +60,7 @@ data.first(7000).each do |review|
   unlabeled_sentiment_attributes << { dataset_id: unlabeled_sentiment_dataset.id, input: review['reviewText'], created_at: Time.zone.now, updated_at: Time.zone.now }
 end
 DataPoint.insert_all(unlabeled_sentiment_attributes)
+puts "Unlabeled sentiment dataset loaded."
 
 # Unlabeled entailment dataset creation
 unlabeled_entailment_dataset = Dataset.create!(name: 'Unlabeled entailment dataset', gold_standard: false, task: task_entailment)
@@ -69,6 +72,7 @@ data.first(7000).each do |entry|
   unlabeled_entailment_attributes << { dataset_id: unlabeled_entailment_dataset.id, input: entry['sentence1'], input2: entry['sentence2'], created_at: Time.zone.now, updated_at: Time.zone.now }
 end
 DataPoint.insert_all(unlabeled_entailment_attributes)
+puts "Unlabeled entailment dataset loaded."
 
 # User creation
 admin = User.create!(name: 'Admin', email: 'admin@example.com', password: 'testtest', role: :admin)

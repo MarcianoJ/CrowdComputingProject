@@ -197,14 +197,35 @@ li {
   overflow: scroll;
 }
 
-/* textarena */
-textarea.readonly {
-  background-color: rgb(235, 235, 235);
-}
-
 textarea {
   min-width: 100%;
   min-height: 10vh;
+  border: none;
+  outline: none;
+}
+
+textarea.readonly {
+  background-color: white;
+}
+
+.clickable_word{
+  padding-left: 4px;
+  padding-right: 4px;
+  border-radius: 5px;
+  font-size: 32px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.unclickable_word {
+  padding-left: 4px;
+  padding-right: 4px;
+  font-size: 32px;
+  user-select: none;
+}
+
+.highlighted {
+  background-color: #00bfb6;
 }
 
 
@@ -234,6 +255,11 @@ mark.red {
 
 .image-div img {
   width:300px;
+}
+
+.contained {
+  max-width: 80%;
+  margin:auto;
 }
 
 .ui-container {
@@ -291,4 +317,5 @@ textarea {
   min-width: 50%;
   min-height: 30vh;
 }
+
 }
