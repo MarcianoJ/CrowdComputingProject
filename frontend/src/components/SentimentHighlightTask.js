@@ -76,7 +76,8 @@ const SentimentHighlightTask = (props) => {
     function goBackHandler(e) {
         props.navigate(`/sentiment/label/${gameid}`, {state:{
             sentences:sentences,
-            ids:location.satete.ids,
+            ids:location.state.ids,
+            task_id: location.state.task_id,
             sentenceIndex:sentenceIndex
         }
         })

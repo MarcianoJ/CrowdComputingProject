@@ -20,7 +20,6 @@ const SentimentLabelTask = (props) => {
     function labelSelectHandler(e){
         var data = props.data
         data[sentence] = {"label": e.target.id, "rational":[]}
-        
         props.setData(data)
         props.navigate(`sentiment/rational/${gameid}`, {state:{
             sentences:sentences,
@@ -37,7 +36,7 @@ const SentimentLabelTask = (props) => {
             props.navigate('/')
         }
         else{
-            props.navigate(`entailment/rational/${gameid}`, {state:{
+            props.navigate(`sentiment/rational/${gameid}`, {state:{
                 sentences:sentences,
                 ids:location.state.ids,
                 task_id: location.state.task_id,

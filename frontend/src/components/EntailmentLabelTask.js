@@ -17,7 +17,6 @@ const EntailmentLabelTask = (props) => {
     var sentenceIndex = location.state.sentenceIndex
     var sentence = sentences[sentenceIndex]
     const { gameid } = useParams()
-    console.log(props.data)
 
     function labelSelectHandler(e){
         var data = props.data
