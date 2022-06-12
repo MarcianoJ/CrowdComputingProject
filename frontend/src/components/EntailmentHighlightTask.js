@@ -37,14 +37,17 @@ const EntailmentHighlight = (props) => {
 
     //HIGHLIGHT HANDLERS
     function highlightHandler(e) {
+        e.preventDefault()
 
         if(selectStatus === 0 && e.target.id == 0){
-            highlight(e,props,sentence)
-            setSelectStatus(1)
+            var change = highlight(e,props,sentence)
+            if(change)
+                setSelectStatus(1)
         } 
         if(selectStatus === 1 && e.target.id == 1){
-            highlight(e,props,sentence)
-            setSelectStatus(0)
+            var change = highlight(e,props,sentence)
+            if(change)
+                setSelectStatus(0)
         }
     }
 

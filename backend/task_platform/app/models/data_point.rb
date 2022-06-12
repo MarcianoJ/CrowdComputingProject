@@ -28,8 +28,8 @@ class DataPoint < ApplicationRecord
     joins(:task_sets).left_outer_joins(:task_results)
         .preload(:task_sets, :task_results)
         .where(task_sets: { id: task_set.id })
-        .where(task_results: { id: nil })
         .group('data_points.id')
+        .having(Arel.sql("COUNT((CASE WHEN task_results.user_id = #{user.id} THEN 1 END)) = 0"))
         .select('data_points.*')
   }
 
@@ -38,6 +38,7 @@ class DataPoint < ApplicationRecord
         .preload(:task_sets, :task_results)
         .where(task_sets: { id: task_set.id })
         .group('data_points.id')
+        .having(Arel.sql("COUNT((CASE WHEN task_results.user_id = #{user.id} THEN 1 END)) > 0"))
         .select('data_points.*')
   }
 

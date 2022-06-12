@@ -168,7 +168,7 @@ class TaskSet < ApplicationRecord
 
       task_set = task.task_sets.create!(tutorial: tutorial, name: (name || generated_name))
 
-      data_points_for_task_set = gold_standard_data_points.first(7) + candidate_data_points.first(total_amount - gold_standard_amount)
+      data_points_for_task_set = gold_standard_data_points.first(gold_standard_amount) + candidate_data_points.first(total_amount - gold_standard_amount)
       task_set.data_points = data_points_for_task_set.shuffle
 
       return task_set

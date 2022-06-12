@@ -1,11 +1,10 @@
 
 
-export function highlight(e,props,sentences) {
+export function highlight(e,props,sentence) {
     var selStart = e.target.selectionStart
     var selEnd = e.target.selectionEnd
     var data = props.data 
-    var sentence = sentences[e.target.id]
-    var first_sentence = sentences[0]
+    
     if (sentence.substring(selStart, selEnd) == " " || sentence.substring(selStart, selEnd) == ""){
         return false
     }
@@ -29,35 +28,26 @@ export function highlight(e,props,sentences) {
         finalSelection = finalSelection.substring(0, finalSelection.length-1)
     }
 
-    if(data[first_sentence]["rational"].includes(finalSelection)){
+    if(data[sentence]["rational"].includes(finalSelection)){
         return false
     }
-    if(e.target.id == 0)
-        data[first_sentence]["rational"] = [...data[first_sentence]["rational"], [finalSelection]]
-    else if(e.target.id == 1){
-        console.log(data[first_sentence]["rational"])
-        var index = data[first_sentence]["rational"].length - 1
-        data[first_sentence]["rational"][index].push(finalSelection)
-    }
-
+ 
+    data[sentence]["rational"] = [...data[sentence]["rational"], finalSelection]
     props.setData(({...data}))
     return true
 }
 
-export function removeHighlight(e, props, sentences) {
-    var first_sentence = sentences[0]
-
+export function removeHighlight(e, props, sentence) {
     var id =e.target.id
-    props.data[first_sentence]["rational"].splice(id, 1)
+    props.data[sentence]["rational"].splice(id,1)
     var data = props.data 
-    data[first_sentence]["rational"] = {...data}[first_sentence]["rational"]
+    data[sentence]["rational"] = {...data}[sentence]["rational"]
     props.setData(({...data}))
 }
 
 
-export function resetHighlight(e, props, sentences) {
-    var first_sentence = sentences[0]
+export function resetHighlight(e, props, sentence) {
     var data = props.data 
-    data[first_sentence]["rational"] = []
+    data[sentence]["rational"] = []
     props.setData(({...data}))
 }
