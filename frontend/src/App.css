@@ -241,7 +241,22 @@ mark.red {
     justify-content: center;
 }
 
+.warning-mobile {
+  visibility: hidden;
+  position: -webkit-sticky; /* Safari */
+
+  background-color: rgb(255, 123, 123);
+  width:100%;
+  position: sticky;
+  padding:10px;
+  text-align: center;
+  top:0
+}
+
 @media only screen and (max-width: 600px) {
+  .warning-mobile {
+    visibility: visible;
+  }
   .main-button{
     width:50vw;
     height:45px;
