@@ -21,7 +21,7 @@
 #  anonymous              :boolean          default(FALSE), not null
 #
 class User < ApplicationRecord
-  UNFINISHED_TASK_SET_AMOUNT = 5.freeze
+  UNFINISHED_TASK_SET_AMOUNT = 1.freeze
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable

@@ -70,9 +70,9 @@ data.sample(7000).each do |entry|
 end
 DataPoint.insert_all(unlabeled_entailment_attributes)
 
-# User creation
-admin = User.create!(name: 'Admin', email: 'admin@example.com', password: 'testtest', role: :admin)
-workers = 10.times.map { |index| User.create!(name: 'Worker 1', email: "worker_#{index}@example.com", password: 'testtest', role: :user) }
+# # User creation
+# admin = User.create!(name: 'Admin', email: 'admin@example.com', password: 'testtest', role: :admin)
+# workers = 10.times.map { |index| User.create!(name: 'Worker 1', email: "worker_#{index}@example.com", password: 'testtest', role: :user) }
 
 # Alien story creation
 alien_story_1 = AlienStory.create!(name: "First contact")

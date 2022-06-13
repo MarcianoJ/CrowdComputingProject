@@ -17,7 +17,7 @@ class Api::V1::UnfinishedDataPointsController < Api::V1::ApplicationController
     # finished_data_points = task_set.data_points
 
     output = {
-      unfinished_data_points: unfinished_data_points.map(&:attributes).shuffle,
+      unfinished_data_points: unfinished_data_points.map(&:attributes),
       unfinished_data_point_count: unfinished_data_points.length,
       finished_data_point_count: finished_data_points.length
     }
